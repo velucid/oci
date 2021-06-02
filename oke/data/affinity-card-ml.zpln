@@ -4,7 +4,7 @@
       "title": "[적립 카드 발급 대상 ML 모델 생성 과정]",
       "text": "%md\n##### ![DL ML Process](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-ml-training-flow.png)",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T06:19:47+0000",
+      "dateUpdated": "2021-06-02T04:27:15+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -41,8 +41,8 @@
       "jobName": "paragraph_1622530696086_1965812608",
       "id": "20190716-065026_1042833318",
       "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T06:19:47+0000",
-      "dateFinished": "2021-06-02T06:19:47+0000",
+      "dateStarted": "2021-06-02T04:27:15+0000",
+      "dateFinished": "2021-06-02T04:27:15+0000",
       "status": "FINISHED",
       "focus": true,
       "$$hashKey": "object:39558"
@@ -51,7 +51,7 @@
       "title": "1) 적립 카드 데이터 로딩 (CSV > Panda DataFrame)",
       "text": "%pyspark\nimport pandas as pd\nfrom pyspark import SparkFiles\n\n# 적립 카드 정보 (.csv)를 DataFrame으로 전환\nspark.sparkContext.addFile(\"https://velucid.github.io/oci/oke/data/sales_affinity_card.csv\")\ndf = spark.read.csv(\"file://\"+SparkFiles.get(\"sales_affinity_card.csv\"), header=True, inferSchema= True)\n\n# 획득한 데이터 정보 출력\ndf.printSchema()\n\ndf.select(\"REC_NO\", \"AFFINITY_CARD\", \"AGE\", \"CUST_MARITAL_STATUS\", \"HOUSEHOLD_SIZE\", \"YRS_RESIDENCE\").show(5)\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T06:19:59+0000",
+      "dateUpdated": "2021-06-02T04:22:32+0000",
       "progress": 100,
       "config": {
         "editorSetting": {
@@ -90,16 +90,16 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=601",
-              "$$hashKey": "object:80167"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=247",
+              "$$hashKey": "object:43337"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=602",
-              "$$hashKey": "object:80168"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=248",
+              "$$hashKey": "object:43338"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=603",
-              "$$hashKey": "object:80169"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=249",
+              "$$hashKey": "object:43339"
             }
           ],
           "interpreterSettingId": "spark"
@@ -109,8 +109,8 @@
       "jobName": "paragraph_1622551312667_277601709",
       "id": "paragraph_1622551312667_277601709",
       "dateCreated": "2021-06-01T12:41:52+0000",
-      "dateStarted": "2021-06-02T06:19:59+0000",
-      "dateFinished": "2021-06-02T06:20:00+0000",
+      "dateStarted": "2021-06-02T04:22:32+0000",
+      "dateFinished": "2021-06-02T04:22:32+0000",
       "status": "FINISHED",
       "$$hashKey": "object:39559"
     },
@@ -118,7 +118,7 @@
       "title": "2) 적립 카드 데이터 3D 분석 (Matplot 3D)",
       "text": "%pyspark\nimport numpy as np\nimport matplotlib as mpl\nfrom mpl_toolkits.mplot3d import Axes3D\nimport matplotlib.pyplot as plt\n\ndata = df.collect()\nCUST_MARITAL_STATUS = {'Mar-AF': 1, 'Mabsent': 2, 'Divorc.': 3, 'Married': 4, 'NeverM': 5, 'Separ.': 6, 'Widowed': 7}\nHOUSEHOLD_SIZE = {'1': 1, '2': 2, '3': 3, '4-5': 4, '9+': 5, '6-8': 6 }\nx3d1, y3d1, z3d1, x3d2, y3d2, z3d2 = [], [], [], [], [], []\nfor r in data:\n    if int(r['AFFINITY_CARD']) == 0:\n        x3d1.append(CUST_MARITAL_STATUS[r['CUST_MARITAL_STATUS']])\n        y3d1.append(HOUSEHOLD_SIZE[r['HOUSEHOLD_SIZE']])\n        z3d1.append(int(r['YRS_RESIDENCE']))\n    else:\n        x3d2.append(CUST_MARITAL_STATUS[r['CUST_MARITAL_STATUS']])\n        y3d2.append(HOUSEHOLD_SIZE[r['HOUSEHOLD_SIZE']])\n        z3d2.append(int(r['YRS_RESIDENCE']))\n        \nax = plt.subplot(111, projection='3d')\nax.plot(x3d1,y3d1,z3d1,'o',color='r', label='affinity_card', alpha=0.3)\nax.plot(x3d2,y3d2,z3d2,'o',color='b', label='no_card', alpha=0.3)\n\nplt.legend(loc='upper center', numpoints=1, ncol=3, fontsize=10, bbox_to_anchor=(0.5, 1.05))\nplt.xlabel(\"CUST_MARITAL_STATUS\")\nplt.ylabel(\"HOUSEHOLD_SIZE\")\nax.set_zlabel(\"YRS_RESIDENCE\")\n\nz.show(plt)\nplt.close()",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T06:20:03+0000",
+      "dateUpdated": "2021-06-02T04:20:39+0000",
       "progress": 100,
       "config": {
         "editorSetting": {
@@ -156,8 +156,8 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=604",
-              "$$hashKey": "object:80218"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=240",
+              "$$hashKey": "object:43050"
             }
           ],
           "interpreterSettingId": "spark"
@@ -167,8 +167,8 @@
       "jobName": "paragraph_1622557894375_1817113156",
       "id": "paragraph_1622557894375_1817113156",
       "dateCreated": "2021-06-01T14:31:34+0000",
-      "dateStarted": "2021-06-02T06:20:03+0000",
-      "dateFinished": "2021-06-02T06:20:04+0000",
+      "dateStarted": "2021-06-02T04:20:39+0000",
+      "dateFinished": "2021-06-02T04:20:40+0000",
       "status": "FINISHED",
       "$$hashKey": "object:39560"
     },
@@ -176,7 +176,7 @@
       "title": "[데이터 벡터화 (ML 전처리)의 필요성]",
       "text": "%md\n##### 대부분의 머신러닝 알고리즘은 <font color='red'>숫자 정보를 입력 데이터</font>로 사용합니다. 이를 위해서는 텍스트와 비디오와 같은 비정형 데이터를 ML 알고리즘이 인식할 수 있는 숫자 정보 집합으로 변환하는 <font color='red'>전처리</font>를 수행해야 합니다.\n##### ![Vetorization](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-vector.png)\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T06:20:06+0000",
+      "dateUpdated": "2021-06-02T04:27:31+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -189,7 +189,7 @@
         "colWidth": 12,
         "editorMode": "ace/mode/markdown",
         "fontSize": 9,
-        "editorHide": true,
+        "editorHide": false,
         "results": {},
         "enabled": true,
         "title": true
@@ -213,8 +213,8 @@
       "jobName": "paragraph_1622530696102_1536221387",
       "id": "20190716-022539_1084749234",
       "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T06:20:06+0000",
-      "dateFinished": "2021-06-02T06:20:06+0000",
+      "dateStarted": "2021-06-02T04:27:01+0000",
+      "dateFinished": "2021-06-02T04:27:01+0000",
       "status": "FINISHED",
       "$$hashKey": "object:39561"
     },
@@ -222,7 +222,7 @@
       "title": "3-1) 분석 테이블 데이터 전처리: 벡터(숫자 정보 집합)로 변환",
       "text": "%pyspark\nfrom pyspark.ml.feature import OneHotEncoderEstimator, StringIndexer, VectorAssembler\nfrom pyspark.ml import Pipeline\nimport pandas as pd\n\ncols = df.columns\nstages = []\n# 텍스트 컴럼에 대한 벡터 변환\ncategoricalColumns = [\"CUST_GENDER\", \"HOUSEHOLD_SIZE\", \"CUST_MARITAL_STATUS\", \"OCCUPATION\"]\nfor categoricalCol in categoricalColumns:\n    stringIndexer = StringIndexer(inputCol=categoricalCol, outputCol=categoricalCol + \"Index\")\n    encoder = OneHotEncoderEstimator(inputCols=[stringIndexer.getOutputCol()], outputCols=[categoricalCol + \"classVec\"])\n    stages += [stringIndexer, encoder]\n#레이블 컬럼 지정: 학습 대상 컬럼\nlabel_stringIdx = StringIndexer(inputCol = 'AFFINITY_CARD', outputCol = 'label')\nstages += [label_stringIdx]\n# 원래 숫자 컬럼 명시\nnumericCols = ['AGE', 'YRS_RESIDENCE']\nassemblerInputs = [c + \"classVec\" for c in categoricalColumns] + numericCols\nassembler = VectorAssembler(inputCols=assemblerInputs, outputCol=\"features\")\nstages += [assembler]\n\npipeline = Pipeline(stages = stages)\npipelineModel = pipeline.fit(df)\ndf = pipelineModel.transform(df)\nselectedCols = ['label', 'features'] + cols\n\ndf2 = df.select(selectedCols)\ndf2.select(\"label\",\"features\",\"REC_NO\").show(10)\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T06:20:09+0000",
+      "dateUpdated": "2021-06-02T04:24:36+0000",
       "progress": 0,
       "config": {
         "lineNumbers": true,
@@ -295,28 +295,28 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=605",
-              "$$hashKey": "object:80415"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=250",
+              "$$hashKey": "object:43540"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=606",
-              "$$hashKey": "object:80416"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=251",
+              "$$hashKey": "object:43541"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=607",
-              "$$hashKey": "object:80417"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=252",
+              "$$hashKey": "object:43542"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=608",
-              "$$hashKey": "object:80418"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=253",
+              "$$hashKey": "object:43543"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=609",
-              "$$hashKey": "object:80419"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=254",
+              "$$hashKey": "object:43544"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=610",
-              "$$hashKey": "object:80420"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=255",
+              "$$hashKey": "object:43545"
             }
           ],
           "interpreterSettingId": "spark"
@@ -326,8 +326,8 @@
       "jobName": "paragraph_1622530696103_1588802610",
       "id": "20190710-145116_1593515799",
       "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T06:20:09+0000",
-      "dateFinished": "2021-06-02T06:20:10+0000",
+      "dateStarted": "2021-06-02T04:24:21+0000",
+      "dateFinished": "2021-06-02T04:24:23+0000",
       "status": "FINISHED",
       "$$hashKey": "object:39562"
     },
@@ -335,7 +335,7 @@
       "title": "[학습, 테스트 전용 데이터 분리의 필요성]",
       "text": "%md\n##### 머신 러닝 학습 과정에서 입력 데이터는 보통 <font color='red'>7:3</font>으로 분리되어 <font color='red'>학습용과 교차 검증용</font>으로 사용됩니다.\n##### ![Data Split](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-data-split.png)\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T06:20:12+0000",
+      "dateUpdated": "2021-06-02T04:28:29+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -372,8 +372,8 @@
       "jobName": "paragraph_1622530696103_1050443754",
       "id": "20190716-025632_1440408539",
       "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T06:20:12+0000",
-      "dateFinished": "2021-06-02T06:20:12+0000",
+      "dateStarted": "2021-06-02T04:28:29+0000",
+      "dateFinished": "2021-06-02T04:28:29+0000",
       "status": "FINISHED",
       "$$hashKey": "object:39563"
     },
@@ -381,7 +381,7 @@
       "title": "3-2) 분석 대상 데이터 분리 (학습, 테스트용)",
       "text": "%pyspark\nimport pandas as pd\n\ntrain, test = df2.randomSplit([0.7, 0.3], seed = 2018)\n\nprint(\"Training Dataset Count: \" + str(train.count()))\n\ntrain.select(\"features\", \"AFFINITY_CARD\", \"HOUSEHOLD_SIZE\", \"YRS_RESIDENCE\", \"CUST_MARITAL_STATUS\").show(1)\n\nprint(\"Test Dataset Count: \" + str(test.count()))\n\ntest.select(\"features\", \"AFFINITY_CARD\", \"HOUSEHOLD_SIZE\", \"YRS_RESIDENCE\", \"CUST_MARITAL_STATUS\").show(2)\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T06:20:15+0000",
+      "dateUpdated": "2021-06-02T04:36:19+0000",
       "progress": 100,
       "config": {
         "lineNumbers": true,
@@ -421,20 +421,20 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=611",
-              "$$hashKey": "object:80568"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=280",
+              "$$hashKey": "object:44636"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=612",
-              "$$hashKey": "object:80569"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=281",
+              "$$hashKey": "object:44637"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=613",
-              "$$hashKey": "object:80570"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=282",
+              "$$hashKey": "object:44638"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=614",
-              "$$hashKey": "object:80571"
+              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=283",
+              "$$hashKey": "object:44639"
             }
           ],
           "interpreterSettingId": "spark"
@@ -444,16 +444,16 @@
       "jobName": "paragraph_1622530696104_760927271",
       "id": "20190710-200450_1450573691",
       "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T06:20:15+0000",
-      "dateFinished": "2021-06-02T06:20:16+0000",
+      "dateStarted": "2021-06-02T04:35:19+0000",
+      "dateFinished": "2021-06-02T04:35:20+0000",
       "status": "FINISHED",
       "$$hashKey": "object:39564"
     },
     {
-      "title": "ML 알고리즘 소개 : Regression과 Classification의 관계",
-      "text": "%md\n#### 회귀(Regression)와 분류(Classification)는 <font color='red'>결과가 정해진 데이터</font>를 학습하는 <font color='red'>지도(Supervied) 학습의 대표적인 두 가지 유형</font>입니다.<br>다양한 ML 분석 알고리즘들에 <font color='red'>연계되어 두루 사용</font>되고 있습니다. 예를 들어 SVM의 경우, 분류와 회귀는 물론 이상치 검출에도 사용됩니다.\n\nRegression(회귀) | Classification (분류)\n-----|-----\n![Regression](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-regression.png) | ![Classification](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-classification.png)\n평균과 같은 <font color='red'>일정한 값으로 돌아가려는 경향</font>을 이용한 통계학 기법 | 데이터가 <font color='red'>어떤 종류(레이블)에 속하는지 분류</font>해주는 학습 모델\n실제값과 예측값의 차이(Residual)를 <font color='red'>최소화 하는 회귀선</font>을 찾아 예측에 사용 | 다양한 알고리즘(회귀 포함)을 통해 <font color='red'>레이블을 최적으로 분리하는 경계</font>를 찾아냄\n예측 값으로 <font color='red'>연속형 숫자</font> 값이 사용됨| 예측 값으로 <font color='red'>카테고리/레이블과 같은 이산형 클래스</font>가 사용됨\n선형/비선형 회귀, 다항식 회귀, 로지스틱 회귀, 릿지, 라쏘, 엘라스틱<br>서포트 벡터 머신, 신경망| 결정 트리, CART,  K-NN, 로지스틱 회귀, 나이브 베이즈,<br>앙상블, 서포트 벡터 머신, 신경망\n",
+      "title": "[ML 알고리즘 소개 : Regression과 Classification의 관계]",
+      "text": "%md\n#### 회귀(Regression)와 분류(Classification)는 <font color='red'>결과가 정해진 데이터</font>를 학습하는 <font color='red'>지도(Supervied) 학습의 대표적인 두 가지 유형</font>입니다.<br>다양한 알고리즘들이 <font color='red'>연계되어 회귀와 분류에 두루 사용</font>됩니다. 예를 들어 SVM의 경우, 분류와 회귀는 물론 이상치 검출에도 사용됩니다.\n-----|-----\n![Regression](https://objectstorage.us-ashburn-1.oraclecloud.com/p/ovUqJmVOPadw0c_L-lnm3O7IVSuv48nEjW14YwFfCEk/n/apackrsct01/b/datalake/o/00-Regression.png) | ![Classification](https://objectstorage.us-ashburn-1.oraclecloud.com/p/vDzeI5vjHFpditQdRI2vyfvsZkHyH8i6JNZ_GcrvrCo/n/apackrsct01/b/datalake/o/00-Classification.png)\n평균과 같은 <font color='red'>일정한 값으로 돌아가려는 경향</font>을 이용한 통계학 기법 | 데이터가 <font color='red'>어떤 종류(레이블)에 속하는지 분류</font>해주는 학습 모델\n실제값과 예측값의 차이(Residual)를 <font color='red'>최소화 하는 회귀선</font>을 찾아 예측에 사용 | 다양한 알고리즘(회귀 포함)을 통해 <font color='red'>레이블을 최적으로 분리하는 경계</font>를 찾아냄\n예측 값으로 <font color='red'>연속형 숫자</font> 값이 사용됨| 예측 값으로 <font color='red'>카테고리/레이블과 같은 이산형 클래스</font>가 사용됨\n선형/비선형 회귀, 다항식 회귀, 로지스틱 회귀, 릿지, 라쏘, 엘라스틱<br>서포트 벡터 머신, 신경망| 결정 트리, CART,  K-NN, 로지스틱 회귀, 나이브 베이즈,<br>앙상블, 서포트 벡터 머신, 신경망\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T06:20:21+0000",
+      "dateUpdated": "2021-06-02T02:51:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -480,7 +480,7 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<h4>회귀(Regression)와 분류(Classification)는 <font color='red'>결과가 정해진 데이터</font>를 학습하는 <font color='red'>지도(Supervied) 학습의 대표적인 두 가지 유형</font>입니다.<br>다양한 ML 분석 알고리즘들에 <font color='red'>연계되어 두루 사용</font>되고 있습니다. 예를 들어 SVM의 경우, 분류와 회귀는 물론 이상치 검출에도 사용됩니다.</h4>\n<table>\n<thead>\n<tr><th>Regression(회귀)</th><th>Classification (분류)</th></tr>\n</thead>\n<tbody>\n<tr><td><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-regression.png\" alt=\"Regression\" /></td><td><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-classification.png\" alt=\"Classification\" /></td></tr>\n<tr><td>평균과 같은 <font color='red'>일정한 값으로 돌아가려는 경향</font>을 이용한 통계학 기법</td><td>데이터가 <font color='red'>어떤 종류(레이블)에 속하는지 분류</font>해주는 학습 모델</td></tr>\n<tr><td>실제값과 예측값의 차이(Residual)를 <font color='red'>최소화 하는 회귀선</font>을 찾아 예측에 사용</td><td>다양한 알고리즘(회귀 포함)을 통해 <font color='red'>레이블을 최적으로 분리하는 경계</font>를 찾아냄</td></tr>\n<tr><td>예측 값으로 <font color='red'>연속형 숫자</font> 값이 사용됨</td><td>예측 값으로 <font color='red'>카테고리/레이블과 같은 이산형 클래스</font>가 사용됨</td></tr>\n<tr><td>선형/비선형 회귀, 다항식 회귀, 로지스틱 회귀, 릿지, 라쏘, 엘라스틱<br>서포트 벡터 머신, 신경망</td><td>결정 트리, CART,  K-NN, 로지스틱 회귀, 나이브 베이즈,<br>앙상블, 서포트 벡터 머신, 신경망</td></tr>\n</tbody>\n</table>\n\n</div>"
+            "data": "<div class=\"markdown-body\">\n<h4>회귀(Regression)와 분류(Classification)는 <font color='red'>결과가 정해진 데이터</font>를 학습하는 <font color='red'>지도(Supervied) 학습의 대표적인 두 가지 유형</font>입니다.<br>다양한 알고리즘들이 <font color='red'>연계되어 회귀와 분류에 두루 사용</font>됩니다. 예를 들어 SVM의 경우, 분류와 회귀는 물론 이상치 검출에도 사용됩니다.</h4>\n<table>\n<thead></thead>\n<tbody>\n<tr><td><img src=\"https://objectstorage.us-ashburn-1.oraclecloud.com/p/ovUqJmVOPadw0c_L-lnm3O7IVSuv48nEjW14YwFfCEk/n/apackrsct01/b/datalake/o/00-Regression.png\" alt=\"Regression\" /></td><td><img src=\"https://objectstorage.us-ashburn-1.oraclecloud.com/p/vDzeI5vjHFpditQdRI2vyfvsZkHyH8i6JNZ_GcrvrCo/n/apackrsct01/b/datalake/o/00-Classification.png\" alt=\"Classification\" /></td></tr>\n<tr><td>평균과 같은 <font color='red'>일정한 값으로 돌아가려는 경향</font>을 이용한 통계학 기법</td><td>데이터가 <font color='red'>어떤 종류(레이블)에 속하는지 분류</font>해주는 학습 모델</td></tr>\n<tr><td>실제값과 예측값의 차이(Residual)를 <font color='red'>최소화 하는 회귀선</font>을 찾아 예측에 사용</td><td>다양한 알고리즘(회귀 포함)을 통해 <font color='red'>레이블을 최적으로 분리하는 경계</font>를 찾아냄</td></tr>\n<tr><td>예측 값으로 <font color='red'>연속형 숫자</font> 값이 사용됨</td><td>예측 값으로 <font color='red'>카테고리/레이블과 같은 이산형 클래스</font>가 사용됨</td></tr>\n<tr><td>선형/비선형 회귀, 다항식 회귀, 로지스틱 회귀, 릿지, 라쏘, 엘라스틱<br>서포트 벡터 머신, 신경망</td><td>결정 트리, CART,  K-NN, 로지스틱 회귀, 나이브 베이즈,<br>앙상블, 서포트 벡터 머신, 신경망</td></tr>\n</tbody>\n</table>\n\n</div>"
           }
         ]
       },
@@ -490,16 +490,16 @@
       "jobName": "paragraph_1622530696104_2092490772",
       "id": "20190729-062126_1573927226",
       "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T06:20:21+0000",
-      "dateFinished": "2021-06-02T06:20:21+0000",
+      "dateStarted": "2021-06-02T02:51:21+0000",
+      "dateFinished": "2021-06-02T02:51:21+0000",
       "status": "FINISHED",
       "$$hashKey": "object:39565"
     },
     {
       "title": "[ML 알고리즘 소개 : Linear Regression (선형 회귀)의 중요성]",
-      "text": "%md\n\n다양한 회귀 알고리즘 | 선형 회귀의 중요성\n-----|-----\n![Linear](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-linear-regression.png) | ![Why Linear](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-linear-regression-why.png)\n선형 회귀는 <font color='red'>간편한 수식과 손쉬운 학습 방법</font>으로 가장 많이 사용됨 | 비선형 회귀는 <font color='red'>데이터의 특성</font>에 따라 선별적으로 사용됨\n<font color='red'>다항식 선형 회귀</font>는 직선에 비해 더 <font color='red'>정확한 결과</font>를 산출하나<br><font color='red'>과적합 문제</font>를 유발할 수 있음 | 비선형 회귀도 차원 변환 등을 통해 <font color='red'>단순 선형 회귀</font>로 변환하여 활용 가능",
+      "text": "%md\n\n다양한 회귀 알고리즘 | 선형 회귀의 중요성\n-----|-----\n![Linear](https://objectstorage.us-ashburn-1.oraclecloud.com/p/_GLGvhef3a4vl39-gDv-OFQx9dn1c59x37d58KghfJY/n/apackrsct01/b/datalake/o/00-linear-regression.png) | ![Why Linear](https://objectstorage.us-ashburn-1.oraclecloud.com/p/LUKOzBaDNcCgQmJqatUdUhw7eotJLVN7Uy5gFFtEJ0s/n/apackrsct01/b/datalake/o/00-linear-regression-why.png)\n선형 회귀는 <font color='red'>간편한 수식과 손쉬운 학습 방법</font>으로 가장 많이 사용됨 | 비선형 회귀는 <font color='red'>데이터의 특성</font>에 따라 선별적으로 사용됨\n<font color='red'>다항식 선형 회귀</font>는 직선에 비해 더 <font color='red'>정확한 결과</font>를 산출하나<br><font color='red'>과적합 문제</font>를 유발할 수 있음 | 비선형 회귀도 차원 변환 등을 통해 <font color='red'>단순 선형 회귀</font>로 변환하여 활용 가능",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T05:45:11+0000",
+      "dateUpdated": "2021-06-02T02:52:14+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -526,7 +526,7 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<table>\n<thead>\n<tr><th>다양한 회귀 알고리즘</th><th>선형 회귀의 중요성</th></tr>\n</thead>\n<tbody>\n<tr><td><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-linear-regression.png\" alt=\"Linear\" /></td><td><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-linear-regression-why.png\" alt=\"Why Linear\" /></td></tr>\n<tr><td>선형 회귀는 <font color='red'>간편한 수식과 손쉬운 학습 방법</font>으로 가장 많이 사용됨</td><td>비선형 회귀는 <font color='red'>데이터의 특성</font>에 따라 선별적으로 사용됨</td></tr>\n<tr><td><font color='red'>다항식 선형 회귀</font>는 직선에 비해 더 <font color='red'>정확한 결과</font>를 산출하나<br><font color='red'>과적합 문제</font>를 유발할 수 있음</td><td>비선형 회귀도 차원 변환 등을 통해 <font color='red'>단순 선형 회귀</font>로 변환하여 활용 가능</td></tr>\n</tbody>\n</table>\n\n</div>"
+            "data": "<div class=\"markdown-body\">\n<table>\n<thead>\n<tr><th>다양한 회귀 알고리즘</th><th>선형 회귀의 중요성</th></tr>\n</thead>\n<tbody>\n<tr><td><img src=\"https://objectstorage.us-ashburn-1.oraclecloud.com/p/_GLGvhef3a4vl39-gDv-OFQx9dn1c59x37d58KghfJY/n/apackrsct01/b/datalake/o/00-linear-regression.png\" alt=\"Linear\" /></td><td><img src=\"https://objectstorage.us-ashburn-1.oraclecloud.com/p/LUKOzBaDNcCgQmJqatUdUhw7eotJLVN7Uy5gFFtEJ0s/n/apackrsct01/b/datalake/o/00-linear-regression-why.png\" alt=\"Why Linear\" /></td></tr>\n<tr><td>선형 회귀는 <font color='red'>간편한 수식과 손쉬운 학습 방법</font>으로 가장 많이 사용됨</td><td>비선형 회귀는 <font color='red'>데이터의 특성</font>에 따라 선별적으로 사용됨</td></tr>\n<tr><td><font color='red'>다항식 선형 회귀</font>는 직선에 비해 더 <font color='red'>정확한 결과</font>를 산출하나<br><font color='red'>과적합 문제</font>를 유발할 수 있음</td><td>비선형 회귀도 차원 변환 등을 통해 <font color='red'>단순 선형 회귀</font>로 변환하여 활용 가능</td></tr>\n</tbody>\n</table>\n\n</div>"
           }
         ]
       },
@@ -536,16 +536,16 @@
       "jobName": "paragraph_1622530696109_582967483",
       "id": "20190729-074847_451849475",
       "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T05:45:11+0000",
-      "dateFinished": "2021-06-02T05:45:11+0000",
+      "dateStarted": "2021-06-02T02:52:14+0000",
+      "dateFinished": "2021-06-02T02:52:14+0000",
       "status": "FINISHED",
       "$$hashKey": "object:39566"
     },
     {
       "title": "[ML 알고리즘 소개 : 1) Decision Tree(결정 트리)와 2) Random Forest Classifier]",
-      "text": "%md\n\n결정 트리(Decision Tree) 모델을 이용한 아이리스 데이터 분류 결과 | Random Forest를 통한 성능 향상\n------------ | -------------\n![Decision Tree](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-decision-tree-iris.png) | ![Random Forest Classifier](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-random-forest-classifier-bagging.png)\nML 알고리즘 중 가장 <font color='red'>직관적이고 이해하기 쉬우며 시각화가 용이</font>한 알고리즘 | 여러 분류기의 결과를 결합하여 분류하는 <font color='red'>앙상블(Ensemble)</font> 학습 모델\n<font color='red'>균일도가 높은</font> 데이터를 기준으로 <font color='red'>트리 구조로 분할</font>하여 분류 규칙을 찾아냄 | 데이터를 여러 개로 분리하여 <font color='red'>결정 트리 분류기를 병렬</font>로 적용하고\n데이터의 스케일링과 정규화 같은 <font color='red'>전처리 작업</font>이 필요 없음 | 그 결과를 <font color='red'>투표를 통해 가장 많이 선택된 분류</font>를 최종 예측하는 방식\n실제 상화에 맞는 <font color='red'>완벽한 규칙</font>의 생성이 어려움 | <font color='red'>데이터 분리 및 보팅</font>을 통해 과적합을 피하고 정확도를 높임",
+      "text": "%md\n\n결정 트리(Decision Tree) 모델을 이용한 아이리스 데이터 분류 결과 | Random Forest를 통한 성능 향상\n------------ | -------------\n![Decision Tree](https://objectstorage.us-ashburn-1.oraclecloud.com/p/g4kEWe0BZqnl5Zw45-_muRA_08_ZgpyONA15FE8sxcw/n/apackrsct01/b/datalake/o/8-2-Decision-Tree-Iris.png) | ![Random Forest Classifier](https://objectstorage.us-ashburn-1.oraclecloud.com/p/XoNCI82j6SQsMnmFkTdt7ftP0D-3rBoxQdBHBraAzT0/n/apackrsct01/b/datalake/o/8-3-Random-Forest-Classifier-Bagging.png)\nML 알고리즘 중 가장 <font color='red'>직관적이고 이해하기 쉬우며 시각화가 용이</font>한 알고리즘 | 여러 분류기의 결과를 결합하여 분류하는 <font color='red'>앙상블(Ensemble)</font> 학습 모델\n<font color='red'>균일도가 높은</font> 데이터를 기준으로 <font color='red'>트리 구조로 분할</font>하여 분류 규칙을 찾아냄 | 데이터를 여러 개로 분리하여 <font color='red'>결정 트리 분류기를 병렬</font>로 적용하고\n데이터의 스케일링과 정규화 같은 <font color='red'>전처리 작업</font>이 필요 없음 | 그 결과를 <font color='red'>투표를 통해 가장 많이 선택된 분류</font>를 최종 예측하는 방식\n실제 상화에 맞는 <font color='red'>완벽한 규칙</font>의 생성이 어려움 | <font color='red'>데이터 분리 및 보팅</font>을 통해 과적합을 피하고 정확도를 높임",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T05:54:16+0000",
+      "dateUpdated": "2021-06-02T02:53:32+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -572,7 +572,7 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<table>\n<thead>\n<tr><th>결정 트리(Decision Tree) 모델을 이용한 아이리스 데이터 분류 결과</th><th>Random Forest를 통한 성능 향상</th></tr>\n</thead>\n<tbody>\n<tr><td><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-decision-tree-iris.png\" alt=\"Decision Tree\" /></td><td><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-random-forest-classifier-bagging.png\" alt=\"Random Forest Classifier\" /></td></tr>\n<tr><td>ML 알고리즘 중 가장 <font color='red'>직관적이고 이해하기 쉬우며 시각화가 용이</font>한 알고리즘</td><td>여러 분류기의 결과를 결합하여 분류하는 <font color='red'>앙상블(Ensemble)</font> 학습 모델</td></tr>\n<tr><td><font color='red'>균일도가 높은</font> 데이터를 기준으로 <font color='red'>트리 구조로 분할</font>하여 분류 규칙을 찾아냄</td><td>데이터를 여러 개로 분리하여 <font color='red'>결정 트리 분류기를 병렬</font>로 적용하고</td></tr>\n<tr><td>데이터의 스케일링과 정규화 같은 <font color='red'>전처리 작업</font>이 필요 없음</td><td>그 결과를 <font color='red'>투표를 통해 가장 많이 선택된 분류</font>를 최종 예측하는 방식</td></tr>\n<tr><td>실제 상화에 맞는 <font color='red'>완벽한 규칙</font>의 생성이 어려움</td><td><font color='red'>데이터 분리 및 보팅</font>을 통해 과적합을 피하고 정확도를 높임</td></tr>\n</tbody>\n</table>\n\n</div>"
+            "data": "<div class=\"markdown-body\">\n<table>\n<thead>\n<tr><th>결정 트리(Decision Tree) 모델을 이용한 아이리스 데이터 분류 결과</th><th>Random Forest를 통한 성능 향상</th></tr>\n</thead>\n<tbody>\n<tr><td><img src=\"https://objectstorage.us-ashburn-1.oraclecloud.com/p/g4kEWe0BZqnl5Zw45-_muRA_08_ZgpyONA15FE8sxcw/n/apackrsct01/b/datalake/o/8-2-Decision-Tree-Iris.png\" alt=\"Decision Tree\" /></td><td><img src=\"https://objectstorage.us-ashburn-1.oraclecloud.com/p/XoNCI82j6SQsMnmFkTdt7ftP0D-3rBoxQdBHBraAzT0/n/apackrsct01/b/datalake/o/8-3-Random-Forest-Classifier-Bagging.png\" alt=\"Random Forest Classifier\" /></td></tr>\n<tr><td>ML 알고리즘 중 가장 <font color='red'>직관적이고 이해하기 쉬우며 시각화가 용이</font>한 알고리즘</td><td>여러 분류기의 결과를 결합하여 분류하는 <font color='red'>앙상블(Ensemble)</font> 학습 모델</td></tr>\n<tr><td><font color='red'>균일도가 높은</font> 데이터를 기준으로 <font color='red'>트리 구조로 분할</font>하여 분류 규칙을 찾아냄</td><td>데이터를 여러 개로 분리하여 <font color='red'>결정 트리 분류기를 병렬</font>로 적용하고</td></tr>\n<tr><td>데이터의 스케일링과 정규화 같은 <font color='red'>전처리 작업</font>이 필요 없음</td><td>그 결과를 <font color='red'>투표를 통해 가장 많이 선택된 분류</font>를 최종 예측하는 방식</td></tr>\n<tr><td>실제 상화에 맞는 <font color='red'>완벽한 규칙</font>의 생성이 어려움</td><td><font color='red'>데이터 분리 및 보팅</font>을 통해 과적합을 피하고 정확도를 높임</td></tr>\n</tbody>\n</table>\n\n</div>"
           }
         ]
       },
@@ -582,8 +582,8 @@
       "jobName": "paragraph_1622530696105_1228754506",
       "id": "20190726-133751_1471206068",
       "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T05:54:16+0000",
-      "dateFinished": "2021-06-02T05:54:16+0000",
+      "dateStarted": "2021-06-02T02:53:32+0000",
+      "dateFinished": "2021-06-02T02:53:32+0000",
       "status": "FINISHED",
       "$$hashKey": "object:39567"
     },
@@ -801,9 +801,9 @@
     },
     {
       "title": "[ML 알고리즘 소개 : Support Vector Machine]",
-      "text": "\n%md\n##### SVM은 선형 커널을 기본으로 복잡한 <font color='red'>비선형 문제</font>를 해결하기 위해 <font color='red'>다양한 Kernal 함수</font>를 제공합니다. 이는 분류에 보다 적합하도록 기존 데이터에 <font color='red'>차원 변환</font>을 가하는 것입니다.\n##### SVM Kernal Trick을 이용한 아이리스 분류 결과 [Link](https://dataaspirant.com/2017/01/25/svm-classifier-implemenation-python-scikit-learn/)\n##### ![SVM](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-svm-iris.png)\n",
+      "text": "\n%md\n##### SVM은 선형 커널을 기본으로 복잡한 <font color='red'>비선형 문제</font>를 해결하기 위해 <font color='red'>다양한 Kernal 함수</font>를 제공합니다. 이는 분류에 보다 적합하도록 기존 데이터에 <font color='red'>차원 변환</font>을 가하는 것입니다.\n##### <center>SVM Kernal Trick을 이용한 아이리스 분류 결과 [Link](https://dataaspirant.com/2017/01/25/svm-classifier-implemenation-python-scikit-learn/)</center>\n##### <center> ![SVM](https://objectstorage.us-ashburn-1.oraclecloud.com/p/_yungNHIc42Uz9jzNa4uel6cFNv-pMV2_p0n4_Z6aQs/n/apackrsct01/b/datalake/o/00-SVM-Iris.png)\n</center>",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T06:15:24+0000",
+      "dateUpdated": "2021-06-02T02:54:35+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -830,7 +830,7 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<h5>SVM은 선형 커널을 기본으로 복잡한 <font color='red'>비선형 문제</font>를 해결하기 위해 <font color='red'>다양한 Kernal 함수</font>를 제공합니다. 이는 분류에 보다 적합하도록 기존 데이터에 <font color='red'>차원 변환</font>을 가하는 것입니다.</h5>\n<h5>SVM Kernal Trick을 이용한 아이리스 분류 결과 <a href=\"https://dataaspirant.com/2017/01/25/svm-classifier-implemenation-python-scikit-learn/\">Link</a></h5>\n<h5><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-svm-iris.png\" alt=\"SVM\" /></h5>\n\n</div>"
+            "data": "<div class=\"markdown-body\">\n<h5>SVM은 선형 커널을 기본으로 복잡한 <font color='red'>비선형 문제</font>를 해결하기 위해 <font color='red'>다양한 Kernal 함수</font>를 제공합니다. 이는 분류에 보다 적합하도록 기존 데이터에 <font color='red'>차원 변환</font>을 가하는 것입니다.</h5>\n<h5><center>SVM Kernal Trick을 이용한 아이리스 분류 결과 <a href=\"https://dataaspirant.com/2017/01/25/svm-classifier-implemenation-python-scikit-learn/\">Link</a></center></h5>\n<h5><center> <img src=\"https://objectstorage.us-ashburn-1.oraclecloud.com/p/_yungNHIc42Uz9jzNa4uel6cFNv-pMV2_p0n4_Z6aQs/n/apackrsct01/b/datalake/o/00-SVM-Iris.png\" alt=\"SVM\" /></h5>\n</center>\n\n</div>"
           }
         ]
       },
@@ -840,16 +840,16 @@
       "jobName": "paragraph_1622530696109_1952820108",
       "id": "20190716-182024_1981578597",
       "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T06:15:24+0000",
-      "dateFinished": "2021-06-02T06:15:24+0000",
+      "dateStarted": "2021-06-02T02:54:35+0000",
+      "dateFinished": "2021-06-02T02:54:35+0000",
       "status": "FINISHED",
       "$$hashKey": "object:39570"
     },
     {
       "title": "[ML 알고리즘 소개 : 3) Support Vector Machine 학습 모델]",
-      "text": "%md\n\nSupport Vecor Machine: 초평면을 통한 분류 | <center>Kernel Trick을 통한 피처 변환</center>\n-----|-----\n![Support Vecor Machine](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-svm.png) | ![Kernel Trick](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-svm-kernel-tricks.png)\nDecision Boudary 분리에 필요한 <font color='red'>최소 개수의 Support Vector</font>으로<br> <font color='red'>최소한의 학습</font>만으로 Optimal Hyperplane을 찾습니다. | <font color='red'>비선형 분석</font>을 위해서는(XOR 문제등) 고비용의 <font color='red'>고차원 피처 변환</font>이 필요한데, <br><font color='red'>Kernal 함수</font>는 여기서 필요한 내적 연산을 대체하여 <font color='red'>변환 비용을 최소화</font> 합니다.\n클래스간에 <font color='red'>가장 큰 마진(margin)</font>을 가지는 결정 경계를 찾아내어<br><font color='red'>과적합</font>을 최소화합니다. | 고차원 피처 변환이 필요한 다양한 분석(분류,회귀,이상치 검출)에 <br>널리 활용되고 있습니다.\n텍스트 및 이미지, 단백질 등의 분류에 탁월한 성능을 보입니다.| Kernal 함수: 선형, 동차, 다항식, 가우시안(RBF), 시그모이드(쌍곡탄젠트)",
+      "text": "%md\n\nSupport Vecor Machine: 초평면을 통한 분류 | <center>Kernel Trick을 통한 피처 변환</center>\n-----|-----\n![Support Vecor Machine](https://objectstorage.us-ashburn-1.oraclecloud.com/p/cKuBAUBlAQ1I99Mxybb5o8sTrtzSnHGi0Z-WGC9BfAI/n/apackrsct01/b/datalake/o/01-SVM.png) | ![Kernel Trick](https://objectstorage.us-ashburn-1.oraclecloud.com/p/uOy3ONtnWbQIXvbzfmhYBEm4OdkHTjz9LGeDLH72lFE/n/apackrsct01/b/datalake/o/01-Kernel-tricks.png)\nDecision Boudary 분리에 필요한 <font color='red'>최소 개수의 Support Vector</font>으로<br> <font color='red'>최소한의 학습</font>만으로 Optimal Hyperplane을 찾습니다. | <font color='red'>비선형 분석</font>을 위해서는(XOR 문제등) 고비용의 <font color='red'>고차원 피처 변환</font>이 필요한데, <br><font color='red'>Kernal 함수</font>는 여기서 필요한 내적 연산을 대체하여 <font color='red'>변환 비용을 최소화</font> 합니다.\n클래스간에 <font color='red'>가장 큰 마진(margin)</font>을 가지는 결정 경계를 찾아내어<br><font color='red'>과적합</font>을 최소화합니다. | 고차원 피처 변환이 필요한 다양한 분석(분류,회귀,이상치 검출)에 <br>널리 활용되고 있습니다.\n텍스트 및 이미지, 단백질 등의 분류에 탁월한 성능을 보입니다.| Kernal 함수: 선형, 동차, 다항식, 가우시안(RBF), 시그모이드(쌍곡탄젠트)",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T06:02:45+0000",
+      "dateUpdated": "2021-06-02T02:54:56+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -876,7 +876,7 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<table>\n<thead>\n<tr><th>Support Vecor Machine: 초평면을 통한 분류</th><th><center>Kernel Trick을 통한 피처 변환</center></th></tr>\n</thead>\n<tbody>\n<tr><td><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-svm.png\" alt=\"Support Vecor Machine\" /></td><td><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-svm-kernel-tricks.png\" alt=\"Kernel Trick\" /></td></tr>\n<tr><td>Decision Boudary 분리에 필요한 <font color='red'>최소 개수의 Support Vector</font>으로<br> <font color='red'>최소한의 학습</font>만으로 Optimal Hyperplane을 찾습니다.</td><td><font color='red'>비선형 분석</font>을 위해서는(XOR 문제등) 고비용의 <font color='red'>고차원 피처 변환</font>이 필요한데, <br><font color='red'>Kernal 함수</font>는 여기서 필요한 내적 연산을 대체하여 <font color='red'>변환 비용을 최소화</font> 합니다.</td></tr>\n<tr><td>클래스간에 <font color='red'>가장 큰 마진(margin)</font>을 가지는 결정 경계를 찾아내어<br><font color='red'>과적합</font>을 최소화합니다.</td><td>고차원 피처 변환이 필요한 다양한 분석(분류,회귀,이상치 검출)에 <br>널리 활용되고 있습니다.</td></tr>\n<tr><td>텍스트 및 이미지, 단백질 등의 분류에 탁월한 성능을 보입니다.</td><td>Kernal 함수: 선형, 동차, 다항식, 가우시안(RBF), 시그모이드(쌍곡탄젠트)</td></tr>\n</tbody>\n</table>\n\n</div>"
+            "data": "<div class=\"markdown-body\">\n<table>\n<thead>\n<tr><th>Support Vecor Machine: 초평면을 통한 분류</th><th><center>Kernel Trick을 통한 피처 변환</center></th></tr>\n</thead>\n<tbody>\n<tr><td><img src=\"https://objectstorage.us-ashburn-1.oraclecloud.com/p/cKuBAUBlAQ1I99Mxybb5o8sTrtzSnHGi0Z-WGC9BfAI/n/apackrsct01/b/datalake/o/01-SVM.png\" alt=\"Support Vecor Machine\" /></td><td><img src=\"https://objectstorage.us-ashburn-1.oraclecloud.com/p/uOy3ONtnWbQIXvbzfmhYBEm4OdkHTjz9LGeDLH72lFE/n/apackrsct01/b/datalake/o/01-Kernel-tricks.png\" alt=\"Kernel Trick\" /></td></tr>\n<tr><td>Decision Boudary 분리에 필요한 <font color='red'>최소 개수의 Support Vector</font>으로<br> <font color='red'>최소한의 학습</font>만으로 Optimal Hyperplane을 찾습니다.</td><td><font color='red'>비선형 분석</font>을 위해서는(XOR 문제등) 고비용의 <font color='red'>고차원 피처 변환</font>이 필요한데, <br><font color='red'>Kernal 함수</font>는 여기서 필요한 내적 연산을 대체하여 <font color='red'>변환 비용을 최소화</font> 합니다.</td></tr>\n<tr><td>클래스간에 <font color='red'>가장 큰 마진(margin)</font>을 가지는 결정 경계를 찾아내어<br><font color='red'>과적합</font>을 최소화합니다.</td><td>고차원 피처 변환이 필요한 다양한 분석(분류,회귀,이상치 검출)에 <br>널리 활용되고 있습니다.</td></tr>\n<tr><td>텍스트 및 이미지, 단백질 등의 분류에 탁월한 성능을 보입니다.</td><td>Kernal 함수: 선형, 동차, 다항식, 가우시안(RBF), 시그모이드(쌍곡탄젠트)</td></tr>\n</tbody>\n</table>\n\n</div>"
           }
         ]
       },
@@ -886,8 +886,8 @@
       "jobName": "paragraph_1622530696109_708034348",
       "id": "20190729-102724_1485927615",
       "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T06:02:45+0000",
-      "dateFinished": "2021-06-02T06:02:45+0000",
+      "dateStarted": "2021-06-02T02:54:56+0000",
+      "dateFinished": "2021-06-02T02:54:56+0000",
       "status": "FINISHED",
       "$$hashKey": "object:39571"
     },
@@ -1061,9 +1061,9 @@
     },
     {
       "title": "[ML 알고리즘 소개 : 4) Logistic Regression]",
-      "text": "%md\n##### - 로지스틱 회귀는 <font color='red'>선형 회귀 방식을 분류에 적용</font>한 알고리즘입니다.<br>- 선형 함수 대신 자연, 사회 현상에서 자주 발생하는 <font color='red'>시그모이드 함수</font>를 사용합니다. <br>- 시그모이드 함수는 신경망에도 활성함수로 초기에 많이 사용되었습니다.\n##### 1. <font color='red'>회귀</font>: 데이터의 특성과 분포를 나타내는 최적의 시그모이드 곡선(로짓변환)을 찾고<br>2. <font color='red'>분류</font>: 이를 기준으로 상위와 하위로 분류합니다.\n##### 결과로 레이블 [0,1] 또는 숫자(0 ~ 1)을 모두 얻을 수 있습니다.\n##### ![Lgistic Regression](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-logistic-regression.png)\n##### ![Lgistic Regression](https://wikimedia.org/api/rest_v1/media/math/render/svg/9537e778e229470d85a68ee0b099c08298a1a3f6)\n",
+      "text": "%md\n##### - 로지스틱 회귀는 <font color='red'>선형 회귀 방식을 분류에 적용</font>한 알고리즘입니다.<br>- 선형 함수 대신 자연, 사회 현상에서 자주 발생하는 <font color='red'>시그모이드 함수</font>를 사용합니다. <br>- 시그모이드 함수는 신경망에도 활성함수로 초기에 많이 사용되었습니다.\n##### 1. <font color='red'>회귀</font>: 데이터의 특성과 분포를 나타내는 최적의 시그모이드 곡선(로짓변환)을 찾고<br>2. <font color='red'>분류</font>: 이를 기준으로 상위와 하위로 분류합니다.\n##### 결과로 레이블 [0,1] 또는 숫자(0 ~ 1)을 모두 얻을 수 있습니다.\n##### <center>![Lgistic Regression](https://objectstorage.us-ashburn-1.oraclecloud.com/p/CQGjy4-ItC2VGtPVoekW8zy9nslVFS1fW3EtcflYPqg/n/apackrsct01/b/datalake/o/8-1-Logistic-Regression.png)</center>\n##### <center>![Lgistic Regression](https://wikimedia.org/api/rest_v1/media/math/render/svg/9537e778e229470d85a68ee0b099c08298a1a3f6)</center>\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T06:15:47+0000",
+      "dateUpdated": "2021-06-02T04:13:36+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1090,7 +1090,7 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<h5>- 로지스틱 회귀는 <font color='red'>선형 회귀 방식을 분류에 적용</font>한 알고리즘입니다.<br>- 선형 함수 대신 자연, 사회 현상에서 자주 발생하는 <font color='red'>시그모이드 함수</font>를 사용합니다. <br>- 시그모이드 함수는 신경망에도 활성함수로 초기에 많이 사용되었습니다.</h5>\n<h5>1. <font color='red'>회귀</font>: 데이터의 특성과 분포를 나타내는 최적의 시그모이드 곡선(로짓변환)을 찾고<br>2. <font color='red'>분류</font>: 이를 기준으로 상위와 하위로 분류합니다.</h5>\n<h5>결과로 레이블 [0,1] 또는 숫자(0 ~ 1)을 모두 얻을 수 있습니다.</h5>\n<h5><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-logistic-regression.png\" alt=\"Lgistic Regression\" /></h5>\n<h5><img src=\"https://wikimedia.org/api/rest_v1/media/math/render/svg/9537e778e229470d85a68ee0b099c08298a1a3f6\" alt=\"Lgistic Regression\" /></h5>\n\n</div>"
+            "data": "<div class=\"markdown-body\">\n<h5>- 로지스틱 회귀는 <font color='red'>선형 회귀 방식을 분류에 적용</font>한 알고리즘입니다.<br>- 선형 함수 대신 자연, 사회 현상에서 자주 발생하는 <font color='red'>시그모이드 함수</font>를 사용합니다. <br>- 시그모이드 함수는 신경망에도 활성함수로 초기에 많이 사용되었습니다.</h5>\n<h5>1. <font color='red'>회귀</font>: 데이터의 특성과 분포를 나타내는 최적의 시그모이드 곡선(로짓변환)을 찾고<br>2. <font color='red'>분류</font>: 이를 기준으로 상위와 하위로 분류합니다.</h5>\n<h5>결과로 레이블 [0,1] 또는 숫자(0 ~ 1)을 모두 얻을 수 있습니다.</h5>\n<h5><center><img src=\"https://objectstorage.us-ashburn-1.oraclecloud.com/p/CQGjy4-ItC2VGtPVoekW8zy9nslVFS1fW3EtcflYPqg/n/apackrsct01/b/datalake/o/8-1-Logistic-Regression.png\" alt=\"Lgistic Regression\" /></center></h5>\n<h5><center><img src=\"https://wikimedia.org/api/rest_v1/media/math/render/svg/9537e778e229470d85a68ee0b099c08298a1a3f6\" alt=\"Lgistic Regression\" /></center></h5>\n\n</div>"
           }
         ]
       },
@@ -1100,8 +1100,8 @@
       "jobName": "paragraph_1622530696116_1814151296",
       "id": "20190716-072548_2010179218",
       "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T06:15:47+0000",
-      "dateFinished": "2021-06-02T06:15:47+0000",
+      "dateStarted": "2021-06-02T04:13:36+0000",
+      "dateFinished": "2021-06-02T04:13:36+0000",
       "status": "FINISHED",
       "$$hashKey": "object:39573"
     },
@@ -1232,55 +1232,9 @@
     },
     {
       "title": "[ML 알고리즘 소개 : Boosting Algorithm]",
-      "text": "%md\n##### <font color='red'>간단한 결정트리 분류기(약한 분류기)</font>로 먼저 분류한 후, 잘못 예측한 데이터를 가중치(+/-)를 주어 <font color='red'>오류를 보정/변경</font>하고, 이를 기반으로 <font color='red'>재분류</font>하는 과정을 순차적으로 반복하여 모델들을 학습시키는 <font color='red'>앙상블</font> 기법입니다.<br>오류 보정 방식이기에 <font color='red'>분류 효율이 상대적으로 좋으나</font> 순차적인 학습 과정때문에 <font color='red'>학습 시간이 오래 걸리고 과적합 오류를 유발</font>할 수 있습니다.\n![Boosting](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-boosting.png)\n\n",
+      "text": "%md\n##### <font color='red'>간단한 결정트리 분류기(약한 분류기)</font>로 먼저 분류한 후, 잘못 예측한 데이터를 가중치(+/-)를 주어 <font color='red'>오류를 보정/변경</font>하고, 이를 기반으로 <font color='red'>재분류</font>하는 과정을 순차적으로 반복하여 모델들을 학습시키는 <font color='red'>앙상블</font> 기법입니다.<br>오류 보정 방식이기에 <font color='red'>분류 효율이 상대적으로 좋으나</font> 순차적인 학습 과정때문에 <font color='red'>학습 시간이 오래 걸리고 과적합 오류를 유발</font>할 수 있습니다.\n![Boosting](https://objectstorage.us-ashburn-1.oraclecloud.com/p/B735MGwYiPNfmomB5nCTu0XjTvZ_VKxcfJ5xyVyUFvY/n/apackrsct01/b/datalake/o/8-4-Boosting.png)\n\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T06:15:52+0000",
-      "progress": 0,
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "markdown",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": false
-        },
-        "colWidth": 12,
-        "editorMode": "ace/mode/markdown",
-        "fontSize": 9,
-        "editorHide": false,
-        "results": {},
-        "enabled": true,
-        "title": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<h5><font color='red'>간단한 결정트리 분류기(약한 분류기)</font>로 먼저 분류한 후, 잘못 예측한 데이터를 가중치(+/-)를 주어 <font color='red'>오류를 보정/변경</font>하고, 이를 기반으로 <font color='red'>재분류</font>하는 과정을 순차적으로 반복하여 모델들을 학습시키는 <font color='red'>앙상블</font> 기법입니다.<br>오류 보정 방식이기에 <font color='red'>분류 효율이 상대적으로 좋으나</font> 순차적인 학습 과정때문에 <font color='red'>학습 시간이 오래 걸리고 과적합 오류를 유발</font>할 수 있습니다.</h5>\n<p><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-boosting.png\" alt=\"Boosting\" /></p>\n\n</div>"
-          }
-        ]
-      },
-      "apps": [],
-      "runtimeInfos": {},
-      "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696116_820020748",
-      "id": "20190716-084856_925580327",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T06:13:36+0000",
-      "dateFinished": "2021-06-02T06:13:36+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39575"
-    },
-    {
-      "title": "[ML 알고리즘 소개 : 5) Gradient Boosted Tree]",
-      "text": "%md\n##### Boosting Algorithm의 가중치 변경(<font color='red'>오류 보정</font>)에 머신 러닝에서 많이 사용되는 <font color='red'>경사 하강법(Gradient Descent)</font>을 사용한다. 분류와 회귀에 모두 사용된다. GBT의 <font color='red'>느린 수행 시간과 과적합 문제를 해결</font>한 <font color='red'>XGBoost, LightBoost</font>등으로로 발전되어 분류 분야에서 많이 사용되고 있습니다.\n##### ![Boosting](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-gradient-descent.png)\n",
-      "user": "anonymous",
-      "dateUpdated": "2021-06-02T06:16:07+0000",
+      "dateUpdated": "2021-06-02T04:13:32+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1307,7 +1261,53 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<h5>Boosting Algorithm의 가중치 변경(<font color='red'>오류 보정</font>)에 머신 러닝에서 많이 사용되는 <font color='red'>경사 하강법(Gradient Descent)</font>을 사용한다. 분류와 회귀에 모두 사용된다. GBT의 <font color='red'>느린 수행 시간과 과적합 문제를 해결</font>한 <font color='red'>XGBoost, LightBoost</font>등으로로 발전되어 분류 분야에서 많이 사용되고 있습니다.</h5>\n<h5><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-gradient-descent.png\" alt=\"Boosting\" /></h5>\n\n</div>"
+            "data": "<div class=\"markdown-body\">\n<h5><font color='red'>간단한 결정트리 분류기(약한 분류기)</font>로 먼저 분류한 후, 잘못 예측한 데이터를 가중치(+/-)를 주어 <font color='red'>오류를 보정/변경</font>하고, 이를 기반으로 <font color='red'>재분류</font>하는 과정을 순차적으로 반복하여 모델들을 학습시키는 <font color='red'>앙상블</font> 기법입니다.<br>오류 보정 방식이기에 <font color='red'>분류 효율이 상대적으로 좋으나</font> 순차적인 학습 과정때문에 <font color='red'>학습 시간이 오래 걸리고 과적합 오류를 유발</font>할 수 있습니다.</h5>\n<p><img src=\"https://objectstorage.us-ashburn-1.oraclecloud.com/p/B735MGwYiPNfmomB5nCTu0XjTvZ_VKxcfJ5xyVyUFvY/n/apackrsct01/b/datalake/o/8-4-Boosting.png\" alt=\"Boosting\" /></p>\n\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622530696116_820020748",
+      "id": "20190716-084856_925580327",
+      "dateCreated": "2021-06-01T06:58:16+0000",
+      "dateStarted": "2021-06-02T04:13:32+0000",
+      "dateFinished": "2021-06-02T04:13:32+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:39575"
+    },
+    {
+      "title": "[ML 알고리즘 소개 : 5) Gradient Boosted Tree]",
+      "text": "%md\n##### Boosting Algorithm의 가중치 변경(<font color='red'>오류 보정</font>)에 머신 러닝에서 많이 사용되는 <font color='red'>경사 하강법(Gradient Descent)</font>을 사용한다. 분류와 회귀에 모두 사용된다. GBT의 <font color='red'>느린 수행 시간과 과적합 문제를 해결</font>한 <font color='red'>XGBoost, LightBoost</font>등으로로 발전되어 분류 분야에서 많이 사용되고 있습니다.\n##### <center>![Boosting](https://objectstorage.us-ashburn-1.oraclecloud.com/p/NSTvE07O4xbGixh4kH_PG0-tgYvXlNZ0_BBNVCeKyPs/n/apackrsct01/b/datalake/o/8-4-Gradient-Descent.png)</center>\n",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-02T02:56:57+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h5>Boosting Algorithm의 가중치 변경(<font color='red'>오류 보정</font>)에 머신 러닝에서 많이 사용되는 <font color='red'>경사 하강법(Gradient Descent)</font>을 사용한다. 분류와 회귀에 모두 사용된다. GBT의 <font color='red'>느린 수행 시간과 과적합 문제를 해결</font>한 <font color='red'>XGBoost, LightBoost</font>등으로로 발전되어 분류 분야에서 많이 사용되고 있습니다.</h5>\n<h5><center><img src=\"https://objectstorage.us-ashburn-1.oraclecloud.com/p/NSTvE07O4xbGixh4kH_PG0-tgYvXlNZ0_BBNVCeKyPs/n/apackrsct01/b/datalake/o/8-4-Gradient-Descent.png\" alt=\"Boosting\" /></center></h5>\n\n</div>"
           }
         ]
       },
@@ -1317,8 +1317,8 @@
       "jobName": "paragraph_1622530696116_1392005785",
       "id": "20190726-084915_1393717489",
       "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T06:16:07+0000",
-      "dateFinished": "2021-06-02T06:16:07+0000",
+      "dateStarted": "2021-06-02T02:56:57+0000",
+      "dateFinished": "2021-06-02T02:56:57+0000",
       "status": "FINISHED",
       "$$hashKey": "object:39576"
     },
