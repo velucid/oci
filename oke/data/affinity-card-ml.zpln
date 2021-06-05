@@ -2,9 +2,9 @@
   "paragraphs": [
     {
       "title": "[적립 카드 발급 대상 ML 모델 생성 과정]",
-      "text": "%md\n##### ![DL ML Process](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-ml-training-flow.png)",
+      "text": "%md\n\n## [적립 카드 발급 대상 ML 모델 생성 과정]\n##### ![DL ML Process](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-ml-training-flow.png)",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:27:15+0000",
+      "dateUpdated": "2021-06-05T16:11:32+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -18,9 +18,9 @@
         "editorMode": "ace/mode/markdown",
         "fontSize": 10,
         "editorHide": true,
+        "title": false,
         "results": {},
-        "enabled": true,
-        "title": true
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -31,28 +31,28 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "<div class=\"markdown-body\">\n<h5><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-ml-training-flow.png\" alt=\"DL ML Process\" /></h5>\n\n</div>"
+            "data": "<div class=\"markdown-body\">\n<h2>[적립 카드 발급 대상 ML 모델 생성 과정]</h2>\n<h5><img src=\"http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-ml-training-flow.png\" alt=\"DL ML Process\" /></h5>\n\n</div>"
           }
         ]
       },
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696086_1965812608",
+      "jobName": "paragraph_1622908580648_1315125040",
       "id": "20190716-065026_1042833318",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T04:27:15+0000",
-      "dateFinished": "2021-06-02T04:27:15+0000",
+      "dateCreated": "2021-06-05T15:56:20+0000",
       "status": "FINISHED",
       "focus": true,
-      "$$hashKey": "object:39558"
+      "$$hashKey": "object:2226",
+      "dateFinished": "2021-06-05T16:11:19+0000",
+      "dateStarted": "2021-06-05T16:11:19+0000"
     },
     {
       "title": "1) 적립 카드 데이터 로딩 (CSV > Panda DataFrame)",
       "text": "%pyspark\nimport pandas as pd\nfrom pyspark import SparkFiles\n\n# 적립 카드 정보 (.csv)를 DataFrame으로 전환\nspark.sparkContext.addFile(\"https://velucid.github.io/oci/oke/data/sales_affinity_card.csv\")\ndf = spark.read.csv(\"file://\"+SparkFiles.get(\"sales_affinity_card.csv\"), header=True, inferSchema= True)\n\n# 획득한 데이터 정보 출력\ndf.printSchema()\n\ndf.select(\"REC_NO\", \"AFFINITY_CARD\", \"AGE\", \"CUST_MARITAL_STATUS\", \"HOUSEHOLD_SIZE\", \"YRS_RESIDENCE\").show(5)\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:22:32+0000",
-      "progress": 100,
+      "dateUpdated": "2021-06-05T15:57:41+0000",
+      "progress": 0,
       "config": {
         "editorSetting": {
           "language": "python",
@@ -64,9 +64,9 @@
         "editorMode": "ace/mode/python",
         "fontSize": 9,
         "editorHide": false,
+        "title": true,
         "results": {},
-        "enabled": true,
-        "title": true
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -90,36 +90,36 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=247",
-              "$$hashKey": "object:43337"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=0",
+              "$$hashKey": "object:4042"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=248",
-              "$$hashKey": "object:43338"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=1",
+              "$$hashKey": "object:4043"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=249",
-              "$$hashKey": "object:43339"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=2",
+              "$$hashKey": "object:4044"
             }
           ],
           "interpreterSettingId": "spark"
         }
       },
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622551312667_277601709",
+      "jobName": "paragraph_1622908580651_1895016784",
       "id": "paragraph_1622551312667_277601709",
-      "dateCreated": "2021-06-01T12:41:52+0000",
-      "dateStarted": "2021-06-02T04:22:32+0000",
-      "dateFinished": "2021-06-02T04:22:32+0000",
+      "dateCreated": "2021-06-05T15:56:20+0000",
       "status": "FINISHED",
-      "$$hashKey": "object:39559"
+      "$$hashKey": "object:2227",
+      "dateFinished": "2021-06-05T15:58:02+0000",
+      "dateStarted": "2021-06-05T15:57:41+0000"
     },
     {
       "title": "2) 적립 카드 데이터 3D 분석 (Matplot 3D)",
       "text": "%pyspark\nimport numpy as np\nimport matplotlib as mpl\nfrom mpl_toolkits.mplot3d import Axes3D\nimport matplotlib.pyplot as plt\n\ndata = df.collect()\nCUST_MARITAL_STATUS = {'Mar-AF': 1, 'Mabsent': 2, 'Divorc.': 3, 'Married': 4, 'NeverM': 5, 'Separ.': 6, 'Widowed': 7}\nHOUSEHOLD_SIZE = {'1': 1, '2': 2, '3': 3, '4-5': 4, '9+': 5, '6-8': 6 }\nx3d1, y3d1, z3d1, x3d2, y3d2, z3d2 = [], [], [], [], [], []\nfor r in data:\n    if int(r['AFFINITY_CARD']) == 0:\n        x3d1.append(CUST_MARITAL_STATUS[r['CUST_MARITAL_STATUS']])\n        y3d1.append(HOUSEHOLD_SIZE[r['HOUSEHOLD_SIZE']])\n        z3d1.append(int(r['YRS_RESIDENCE']))\n    else:\n        x3d2.append(CUST_MARITAL_STATUS[r['CUST_MARITAL_STATUS']])\n        y3d2.append(HOUSEHOLD_SIZE[r['HOUSEHOLD_SIZE']])\n        z3d2.append(int(r['YRS_RESIDENCE']))\n        \nax = plt.subplot(111, projection='3d')\nax.plot(x3d1,y3d1,z3d1,'o',color='r', label='affinity_card', alpha=0.3)\nax.plot(x3d2,y3d2,z3d2,'o',color='b', label='no_card', alpha=0.3)\n\nplt.legend(loc='upper center', numpoints=1, ncol=3, fontsize=10, bbox_to_anchor=(0.5, 1.05))\nplt.xlabel(\"CUST_MARITAL_STATUS\")\nplt.ylabel(\"HOUSEHOLD_SIZE\")\nax.set_zlabel(\"YRS_RESIDENCE\")\n\nz.show(plt)\nplt.close()",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:20:39+0000",
-      "progress": 100,
+      "dateUpdated": "2021-06-05T15:58:10+0000",
+      "progress": 0,
       "config": {
         "editorSetting": {
           "language": "python",
@@ -156,27 +156,27 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=240",
-              "$$hashKey": "object:43050"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=3",
+              "$$hashKey": "object:4090"
             }
           ],
           "interpreterSettingId": "spark"
         }
       },
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622557894375_1817113156",
+      "jobName": "paragraph_1622908580655_1592186071",
       "id": "paragraph_1622557894375_1817113156",
-      "dateCreated": "2021-06-01T14:31:34+0000",
-      "dateStarted": "2021-06-02T04:20:39+0000",
-      "dateFinished": "2021-06-02T04:20:40+0000",
+      "dateCreated": "2021-06-05T15:56:20+0000",
       "status": "FINISHED",
-      "$$hashKey": "object:39560"
+      "$$hashKey": "object:2228",
+      "dateFinished": "2021-06-05T15:58:11+0000",
+      "dateStarted": "2021-06-05T15:58:10+0000"
     },
     {
       "title": "[데이터 벡터화 (ML 전처리)의 필요성]",
       "text": "%md\n##### 대부분의 머신러닝 알고리즘은 <font color='red'>숫자 정보를 입력 데이터</font>로 사용합니다. 이를 위해서는 텍스트와 비디오와 같은 비정형 데이터를 ML 알고리즘이 인식할 수 있는 숫자 정보 집합으로 변환하는 <font color='red'>전처리</font>를 수행해야 합니다.\n##### ![Vetorization](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-vector.png)\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:27:31+0000",
+      "dateUpdated": "2021-06-05T15:59:38+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -189,10 +189,10 @@
         "colWidth": 12,
         "editorMode": "ace/mode/markdown",
         "fontSize": 9,
-        "editorHide": false,
+        "editorHide": true,
+        "title": true,
         "results": {},
-        "enabled": true,
-        "title": true
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -210,19 +210,19 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696102_1536221387",
+      "jobName": "paragraph_1622908580656_1594229696",
       "id": "20190716-022539_1084749234",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T04:27:01+0000",
-      "dateFinished": "2021-06-02T04:27:01+0000",
+      "dateCreated": "2021-06-05T15:56:20+0000",
       "status": "FINISHED",
-      "$$hashKey": "object:39561"
+      "$$hashKey": "object:2229",
+      "dateFinished": "2021-06-05T15:59:38+0000",
+      "dateStarted": "2021-06-05T15:59:38+0000"
     },
     {
       "title": "3-1) 분석 테이블 데이터 전처리: 벡터(숫자 정보 집합)로 변환",
       "text": "%pyspark\nfrom pyspark.ml.feature import OneHotEncoderEstimator, StringIndexer, VectorAssembler\nfrom pyspark.ml import Pipeline\nimport pandas as pd\n\ncols = df.columns\nstages = []\n# 텍스트 컴럼에 대한 벡터 변환\ncategoricalColumns = [\"CUST_GENDER\", \"HOUSEHOLD_SIZE\", \"CUST_MARITAL_STATUS\", \"OCCUPATION\"]\nfor categoricalCol in categoricalColumns:\n    stringIndexer = StringIndexer(inputCol=categoricalCol, outputCol=categoricalCol + \"Index\")\n    encoder = OneHotEncoderEstimator(inputCols=[stringIndexer.getOutputCol()], outputCols=[categoricalCol + \"classVec\"])\n    stages += [stringIndexer, encoder]\n#레이블 컬럼 지정: 학습 대상 컬럼\nlabel_stringIdx = StringIndexer(inputCol = 'AFFINITY_CARD', outputCol = 'label')\nstages += [label_stringIdx]\n# 원래 숫자 컬럼 명시\nnumericCols = ['AGE', 'YRS_RESIDENCE']\nassemblerInputs = [c + \"classVec\" for c in categoricalColumns] + numericCols\nassembler = VectorAssembler(inputCols=assemblerInputs, outputCol=\"features\")\nstages += [assembler]\n\npipeline = Pipeline(stages = stages)\npipelineModel = pipeline.fit(df)\ndf = pipelineModel.transform(df)\nselectedCols = ['label', 'features'] + cols\n\ndf2 = df.select(selectedCols)\ndf2.select(\"label\",\"features\",\"REC_NO\").show(10)\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:24:36+0000",
+      "dateUpdated": "2021-06-05T15:59:44+0000",
       "progress": 0,
       "config": {
         "lineNumbers": true,
@@ -295,47 +295,47 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=250",
-              "$$hashKey": "object:43540"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=4",
+              "$$hashKey": "object:4276"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=251",
-              "$$hashKey": "object:43541"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=5",
+              "$$hashKey": "object:4277"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=252",
-              "$$hashKey": "object:43542"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=6",
+              "$$hashKey": "object:4278"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=253",
-              "$$hashKey": "object:43543"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=7",
+              "$$hashKey": "object:4279"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=254",
-              "$$hashKey": "object:43544"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=8",
+              "$$hashKey": "object:4280"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=255",
-              "$$hashKey": "object:43545"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=9",
+              "$$hashKey": "object:4281"
             }
           ],
           "interpreterSettingId": "spark"
         }
       },
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696103_1588802610",
+      "jobName": "paragraph_1622908580656_584362315",
       "id": "20190710-145116_1593515799",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T04:24:21+0000",
-      "dateFinished": "2021-06-02T04:24:23+0000",
+      "dateCreated": "2021-06-05T15:56:20+0000",
       "status": "FINISHED",
-      "$$hashKey": "object:39562"
+      "$$hashKey": "object:2230",
+      "dateFinished": "2021-06-05T15:59:48+0000",
+      "dateStarted": "2021-06-05T15:59:44+0000"
     },
     {
       "title": "[학습, 테스트 전용 데이터 분리의 필요성]",
       "text": "%md\n##### 머신 러닝 학습 과정에서 입력 데이터는 보통 <font color='red'>7:3</font>으로 분리되어 <font color='red'>학습용과 교차 검증용</font>으로 사용됩니다.\n##### ![Data Split](http://velucid.github.io/oci/oke/images/ai-ml/oci-oke-data-split.png)\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:28:29+0000",
+      "dateUpdated": "2021-06-05T15:56:20+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -349,9 +349,9 @@
         "editorMode": "ace/mode/markdown",
         "fontSize": 9,
         "editorHide": true,
+        "title": true,
         "results": {},
-        "enabled": true,
-        "title": true
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -369,20 +369,18 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696103_1050443754",
+      "jobName": "paragraph_1622908580656_1052267937",
       "id": "20190716-025632_1440408539",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T04:28:29+0000",
-      "dateFinished": "2021-06-02T04:28:29+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39563"
+      "dateCreated": "2021-06-05T15:56:20+0000",
+      "status": "READY",
+      "$$hashKey": "object:2231"
     },
     {
       "title": "3-2) 분석 대상 데이터 분리 (학습, 테스트용)",
       "text": "%pyspark\nimport pandas as pd\n\ntrain, test = df2.randomSplit([0.7, 0.3], seed = 2018)\n\nprint(\"Training Dataset Count: \" + str(train.count()))\n\ntrain.select(\"features\", \"AFFINITY_CARD\", \"HOUSEHOLD_SIZE\", \"YRS_RESIDENCE\", \"CUST_MARITAL_STATUS\").show(1)\n\nprint(\"Test Dataset Count: \" + str(test.count()))\n\ntest.select(\"features\", \"AFFINITY_CARD\", \"HOUSEHOLD_SIZE\", \"YRS_RESIDENCE\", \"CUST_MARITAL_STATUS\").show(2)\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:36:19+0000",
-      "progress": 100,
+      "dateUpdated": "2021-06-05T15:59:54+0000",
+      "progress": 0,
       "config": {
         "lineNumbers": true,
         "editorSetting": {
@@ -421,39 +419,39 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=280",
-              "$$hashKey": "object:44636"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=10",
+              "$$hashKey": "object:4388"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=281",
-              "$$hashKey": "object:44637"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=11",
+              "$$hashKey": "object:4389"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=282",
-              "$$hashKey": "object:44638"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=12",
+              "$$hashKey": "object:4390"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=283",
-              "$$hashKey": "object:44639"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=13",
+              "$$hashKey": "object:4391"
             }
           ],
           "interpreterSettingId": "spark"
         }
       },
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696104_760927271",
+      "jobName": "paragraph_1622908580656_1936772436",
       "id": "20190710-200450_1450573691",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T04:35:19+0000",
-      "dateFinished": "2021-06-02T04:35:20+0000",
+      "dateCreated": "2021-06-05T15:56:20+0000",
       "status": "FINISHED",
-      "$$hashKey": "object:39564"
+      "$$hashKey": "object:2232",
+      "dateFinished": "2021-06-05T15:59:57+0000",
+      "dateStarted": "2021-06-05T15:59:54+0000"
     },
     {
       "title": "[ML 알고리즘 소개 : Regression과 Classification의 관계]",
       "text": "%md\n#### 회귀(Regression)와 분류(Classification)는 <font color='red'>결과가 정해진 데이터</font>를 학습하는 <font color='red'>지도(Supervied) 학습의 대표적인 두 가지 유형</font>입니다.<br>다양한 알고리즘들이 <font color='red'>연계되어 회귀와 분류에 두루 사용</font>됩니다. 예를 들어 SVM의 경우, 분류와 회귀는 물론 이상치 검출에도 사용됩니다.\n-----|-----\n![Regression](https://objectstorage.us-ashburn-1.oraclecloud.com/p/ovUqJmVOPadw0c_L-lnm3O7IVSuv48nEjW14YwFfCEk/n/apackrsct01/b/datalake/o/00-Regression.png) | ![Classification](https://objectstorage.us-ashburn-1.oraclecloud.com/p/vDzeI5vjHFpditQdRI2vyfvsZkHyH8i6JNZ_GcrvrCo/n/apackrsct01/b/datalake/o/00-Classification.png)\n평균과 같은 <font color='red'>일정한 값으로 돌아가려는 경향</font>을 이용한 통계학 기법 | 데이터가 <font color='red'>어떤 종류(레이블)에 속하는지 분류</font>해주는 학습 모델\n실제값과 예측값의 차이(Residual)를 <font color='red'>최소화 하는 회귀선</font>을 찾아 예측에 사용 | 다양한 알고리즘(회귀 포함)을 통해 <font color='red'>레이블을 최적으로 분리하는 경계</font>를 찾아냄\n예측 값으로 <font color='red'>연속형 숫자</font> 값이 사용됨| 예측 값으로 <font color='red'>카테고리/레이블과 같은 이산형 클래스</font>가 사용됨\n선형/비선형 회귀, 다항식 회귀, 로지스틱 회귀, 릿지, 라쏘, 엘라스틱<br>서포트 벡터 머신, 신경망| 결정 트리, CART,  K-NN, 로지스틱 회귀, 나이브 베이즈,<br>앙상블, 서포트 벡터 머신, 신경망\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T02:51:21+0000",
+      "dateUpdated": "2021-06-05T15:56:20+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -467,9 +465,9 @@
         "editorMode": "ace/mode/markdown",
         "fontSize": 9,
         "editorHide": true,
+        "title": true,
         "results": {},
-        "enabled": true,
-        "title": true
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -487,19 +485,17 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696104_2092490772",
+      "jobName": "paragraph_1622908580656_1749398448",
       "id": "20190729-062126_1573927226",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T02:51:21+0000",
-      "dateFinished": "2021-06-02T02:51:21+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39565"
+      "dateCreated": "2021-06-05T15:56:20+0000",
+      "status": "READY",
+      "$$hashKey": "object:2233"
     },
     {
       "title": "[ML 알고리즘 소개 : Linear Regression (선형 회귀)의 중요성]",
       "text": "%md\n\n다양한 회귀 알고리즘 | 선형 회귀의 중요성\n-----|-----\n![Linear](https://objectstorage.us-ashburn-1.oraclecloud.com/p/_GLGvhef3a4vl39-gDv-OFQx9dn1c59x37d58KghfJY/n/apackrsct01/b/datalake/o/00-linear-regression.png) | ![Why Linear](https://objectstorage.us-ashburn-1.oraclecloud.com/p/LUKOzBaDNcCgQmJqatUdUhw7eotJLVN7Uy5gFFtEJ0s/n/apackrsct01/b/datalake/o/00-linear-regression-why.png)\n선형 회귀는 <font color='red'>간편한 수식과 손쉬운 학습 방법</font>으로 가장 많이 사용됨 | 비선형 회귀는 <font color='red'>데이터의 특성</font>에 따라 선별적으로 사용됨\n<font color='red'>다항식 선형 회귀</font>는 직선에 비해 더 <font color='red'>정확한 결과</font>를 산출하나<br><font color='red'>과적합 문제</font>를 유발할 수 있음 | 비선형 회귀도 차원 변환 등을 통해 <font color='red'>단순 선형 회귀</font>로 변환하여 활용 가능",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T02:52:14+0000",
+      "dateUpdated": "2021-06-05T15:56:20+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -513,9 +509,9 @@
         "editorMode": "ace/mode/markdown",
         "fontSize": 9,
         "editorHide": true,
+        "title": true,
         "results": {},
-        "enabled": true,
-        "title": true
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -533,19 +529,17 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696109_582967483",
+      "jobName": "paragraph_1622908580656_1155357290",
       "id": "20190729-074847_451849475",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T02:52:14+0000",
-      "dateFinished": "2021-06-02T02:52:14+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39566"
+      "dateCreated": "2021-06-05T15:56:20+0000",
+      "status": "READY",
+      "$$hashKey": "object:2234"
     },
     {
       "title": "[ML 알고리즘 소개 : 1) Decision Tree(결정 트리)와 2) Random Forest Classifier]",
       "text": "%md\n\n결정 트리(Decision Tree) 모델을 이용한 아이리스 데이터 분류 결과 | Random Forest를 통한 성능 향상\n------------ | -------------\n![Decision Tree](https://objectstorage.us-ashburn-1.oraclecloud.com/p/g4kEWe0BZqnl5Zw45-_muRA_08_ZgpyONA15FE8sxcw/n/apackrsct01/b/datalake/o/8-2-Decision-Tree-Iris.png) | ![Random Forest Classifier](https://objectstorage.us-ashburn-1.oraclecloud.com/p/XoNCI82j6SQsMnmFkTdt7ftP0D-3rBoxQdBHBraAzT0/n/apackrsct01/b/datalake/o/8-3-Random-Forest-Classifier-Bagging.png)\nML 알고리즘 중 가장 <font color='red'>직관적이고 이해하기 쉬우며 시각화가 용이</font>한 알고리즘 | 여러 분류기의 결과를 결합하여 분류하는 <font color='red'>앙상블(Ensemble)</font> 학습 모델\n<font color='red'>균일도가 높은</font> 데이터를 기준으로 <font color='red'>트리 구조로 분할</font>하여 분류 규칙을 찾아냄 | 데이터를 여러 개로 분리하여 <font color='red'>결정 트리 분류기를 병렬</font>로 적용하고\n데이터의 스케일링과 정규화 같은 <font color='red'>전처리 작업</font>이 필요 없음 | 그 결과를 <font color='red'>투표를 통해 가장 많이 선택된 분류</font>를 최종 예측하는 방식\n실제 상화에 맞는 <font color='red'>완벽한 규칙</font>의 생성이 어려움 | <font color='red'>데이터 분리 및 보팅</font>을 통해 과적합을 피하고 정확도를 높임",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T02:53:32+0000",
+      "dateUpdated": "2021-06-05T15:56:20+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -559,9 +553,9 @@
         "editorMode": "ace/mode/markdown",
         "fontSize": 10,
         "editorHide": true,
+        "title": true,
         "results": {},
-        "enabled": true,
-        "title": true
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -579,20 +573,18 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696105_1228754506",
+      "jobName": "paragraph_1622908580656_287336717",
       "id": "20190726-133751_1471206068",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T02:53:32+0000",
-      "dateFinished": "2021-06-02T02:53:32+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39567"
+      "dateCreated": "2021-06-05T15:56:20+0000",
+      "status": "READY",
+      "$$hashKey": "object:2235"
     },
     {
       "title": "4-1) Decision Tree Classifier 분석 결과 (77%)",
       "text": "%pyspark\nfrom pyspark.ml.classification import DecisionTreeClassifier\nfrom pyspark.ml.evaluation import BinaryClassificationEvaluator\n\ndt = DecisionTreeClassifier(featuresCol = 'features', labelCol = 'label', maxDepth = 5)\ndtModel = dt.fit(train)\n\npredictions = dtModel.transform(test)\npredictions.select('label', 'prediction', 'probability', 'HOUSEHOLD_SIZE', 'YRS_RESIDENCE', 'CUST_MARITAL_STATUS').show(5)\n\nevaluator = BinaryClassificationEvaluator()\nprint(\"Test Area Under ROC: \" + str(evaluator.evaluate(predictions, {evaluator.metricName: \"areaUnderROC\"})))",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:53:04+0000",
-      "progress": 100,
+      "dateUpdated": "2021-06-05T16:00:07+0000",
+      "progress": 0,
       "config": {
         "lineNumbers": true,
         "editorSetting": {
@@ -631,71 +623,71 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=491",
-              "$$hashKey": "object:58573"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=14",
+              "$$hashKey": "object:4837"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=492",
-              "$$hashKey": "object:58574"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=15",
+              "$$hashKey": "object:4838"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=493",
-              "$$hashKey": "object:58575"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=16",
+              "$$hashKey": "object:4839"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=494",
-              "$$hashKey": "object:58576"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=17",
+              "$$hashKey": "object:4840"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=495",
-              "$$hashKey": "object:58577"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=18",
+              "$$hashKey": "object:4841"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=496",
-              "$$hashKey": "object:58578"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=19",
+              "$$hashKey": "object:4842"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=497",
-              "$$hashKey": "object:58579"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=20",
+              "$$hashKey": "object:4843"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=498",
-              "$$hashKey": "object:58580"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=21",
+              "$$hashKey": "object:4844"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=499",
-              "$$hashKey": "object:58581"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=22",
+              "$$hashKey": "object:4845"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=500",
-              "$$hashKey": "object:58582"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=23",
+              "$$hashKey": "object:4846"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=501",
-              "$$hashKey": "object:58583"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=24",
+              "$$hashKey": "object:4847"
             },
             {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=502",
-              "$$hashKey": "object:58584"
+              "jobUrl": "http://c04d0a411a02:4040/jobs/job?id=25",
+              "$$hashKey": "object:4848"
             }
           ],
           "interpreterSettingId": "spark"
         }
       },
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696108_585177715",
+      "jobName": "paragraph_1622908580657_730164997",
       "id": "20190710-201434_485820763",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T04:53:04+0000",
-      "dateFinished": "2021-06-02T04:53:05+0000",
+      "dateCreated": "2021-06-05T15:56:20+0000",
       "status": "FINISHED",
-      "$$hashKey": "object:39568"
+      "$$hashKey": "object:2236",
+      "dateFinished": "2021-06-05T16:00:10+0000",
+      "dateStarted": "2021-06-05T16:00:07+0000"
     },
     {
       "title": "4-2) Random Forest Classifier 분석 결과 (91%)",
       "text": "%pyspark\nfrom pyspark.ml.classification import RandomForestClassifier\nfrom pyspark.ml.evaluation import BinaryClassificationEvaluator\n\nrf = RandomForestClassifier(featuresCol = 'features', labelCol = 'label')\nrfModel = rf.fit(train)\n\npredictions = rfModel.transform(test)\npredictions.select('label', 'prediction', 'probability', 'HOUSEHOLD_SIZE', 'YRS_RESIDENCE', 'CUST_MARITAL_STATUS').show(5)\n\nevaluator = BinaryClassificationEvaluator()\nprint(\"Test Area Under ROC: \" + str(evaluator.evaluate(predictions, {evaluator.metricName: \"areaUnderROC\"})))",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:53:08+0000",
+      "dateUpdated": "2021-06-05T15:56:20+0000",
       "progress": 0,
       "config": {
         "lineNumbers": true,
@@ -727,83 +719,19 @@
         ]
       },
       "apps": [],
-      "runtimeInfos": {
-        "jobUrl": {
-          "propertyName": "jobUrl",
-          "label": "SPARK JOB",
-          "tooltip": "View in Spark web UI",
-          "group": "spark",
-          "values": [
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=503",
-              "$$hashKey": "object:59185"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=504",
-              "$$hashKey": "object:59186"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=505",
-              "$$hashKey": "object:59187"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=506",
-              "$$hashKey": "object:59188"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=507",
-              "$$hashKey": "object:59189"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=508",
-              "$$hashKey": "object:59190"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=509",
-              "$$hashKey": "object:59191"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=510",
-              "$$hashKey": "object:59192"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=511",
-              "$$hashKey": "object:59193"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=512",
-              "$$hashKey": "object:59194"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=513",
-              "$$hashKey": "object:59195"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=514",
-              "$$hashKey": "object:59196"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=515",
-              "$$hashKey": "object:59197"
-            }
-          ],
-          "interpreterSettingId": "spark"
-        }
-      },
+      "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696109_573968112",
+      "jobName": "paragraph_1622908580657_1647599808",
       "id": "20190710-194442_2144346391",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T04:53:08+0000",
-      "dateFinished": "2021-06-02T04:53:09+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39569"
+      "dateCreated": "2021-06-05T15:56:20+0000",
+      "status": "READY",
+      "$$hashKey": "object:2237"
     },
     {
       "title": "[ML 알고리즘 소개 : Support Vector Machine]",
       "text": "\n%md\n##### SVM은 선형 커널을 기본으로 복잡한 <font color='red'>비선형 문제</font>를 해결하기 위해 <font color='red'>다양한 Kernal 함수</font>를 제공합니다. 이는 분류에 보다 적합하도록 기존 데이터에 <font color='red'>차원 변환</font>을 가하는 것입니다.\n##### <center>SVM Kernal Trick을 이용한 아이리스 분류 결과 [Link](https://dataaspirant.com/2017/01/25/svm-classifier-implemenation-python-scikit-learn/)</center>\n##### <center> ![SVM](https://objectstorage.us-ashburn-1.oraclecloud.com/p/_yungNHIc42Uz9jzNa4uel6cFNv-pMV2_p0n4_Z6aQs/n/apackrsct01/b/datalake/o/00-SVM-Iris.png)\n</center>",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T02:54:35+0000",
+      "dateUpdated": "2021-06-05T15:56:20+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -817,9 +745,9 @@
         "editorMode": "ace/mode/markdown",
         "fontSize": 9,
         "editorHide": true,
+        "title": true,
         "results": {},
-        "enabled": true,
-        "title": true
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -837,19 +765,17 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696109_1952820108",
+      "jobName": "paragraph_1622908580657_460572395",
       "id": "20190716-182024_1981578597",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T02:54:35+0000",
-      "dateFinished": "2021-06-02T02:54:35+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39570"
+      "dateCreated": "2021-06-05T15:56:20+0000",
+      "status": "READY",
+      "$$hashKey": "object:2238"
     },
     {
       "title": "[ML 알고리즘 소개 : 3) Support Vector Machine 학습 모델]",
       "text": "%md\n\nSupport Vecor Machine: 초평면을 통한 분류 | <center>Kernel Trick을 통한 피처 변환</center>\n-----|-----\n![Support Vecor Machine](https://objectstorage.us-ashburn-1.oraclecloud.com/p/cKuBAUBlAQ1I99Mxybb5o8sTrtzSnHGi0Z-WGC9BfAI/n/apackrsct01/b/datalake/o/01-SVM.png) | ![Kernel Trick](https://objectstorage.us-ashburn-1.oraclecloud.com/p/uOy3ONtnWbQIXvbzfmhYBEm4OdkHTjz9LGeDLH72lFE/n/apackrsct01/b/datalake/o/01-Kernel-tricks.png)\nDecision Boudary 분리에 필요한 <font color='red'>최소 개수의 Support Vector</font>으로<br> <font color='red'>최소한의 학습</font>만으로 Optimal Hyperplane을 찾습니다. | <font color='red'>비선형 분석</font>을 위해서는(XOR 문제등) 고비용의 <font color='red'>고차원 피처 변환</font>이 필요한데, <br><font color='red'>Kernal 함수</font>는 여기서 필요한 내적 연산을 대체하여 <font color='red'>변환 비용을 최소화</font> 합니다.\n클래스간에 <font color='red'>가장 큰 마진(margin)</font>을 가지는 결정 경계를 찾아내어<br><font color='red'>과적합</font>을 최소화합니다. | 고차원 피처 변환이 필요한 다양한 분석(분류,회귀,이상치 검출)에 <br>널리 활용되고 있습니다.\n텍스트 및 이미지, 단백질 등의 분류에 탁월한 성능을 보입니다.| Kernal 함수: 선형, 동차, 다항식, 가우시안(RBF), 시그모이드(쌍곡탄젠트)",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T02:54:56+0000",
+      "dateUpdated": "2021-06-05T15:56:20+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -863,9 +789,9 @@
         "editorMode": "ace/mode/markdown",
         "fontSize": 9,
         "editorHide": true,
+        "title": true,
         "results": {},
-        "enabled": true,
-        "title": true
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -883,20 +809,18 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696109_708034348",
+      "jobName": "paragraph_1622908580657_426503082",
       "id": "20190729-102724_1485927615",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T02:54:56+0000",
-      "dateFinished": "2021-06-02T02:54:56+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39571"
+      "dateCreated": "2021-06-05T15:56:20+0000",
+      "status": "READY",
+      "$$hashKey": "object:2239"
     },
     {
       "title": "4-3) Linear SVM 분석 결과 (83%)",
       "text": "%pyspark\nfrom pyspark.ml.classification import LinearSVC\nfrom pyspark.ml.evaluation import BinaryClassificationEvaluator\n\nlsvc = LinearSVC(maxIter=10, regParam=0.1)\nlsvcModel = lsvc.fit(train)\n\npredictions = lsvcModel.transform(test)\npredictions.select('label', 'prediction', 'HOUSEHOLD_SIZE', 'YRS_RESIDENCE', 'CUST_MARITAL_STATUS').show(5)\n\nevaluator = BinaryClassificationEvaluator()\nprint(\"Test Area Under ROC: \" + str(evaluator.evaluate(predictions, {evaluator.metricName: \"areaUnderROC\"})))",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:51:43+0000",
-      "progress": 33,
+      "dateUpdated": "2021-06-05T15:56:20+0000",
+      "progress": 0,
       "config": {
         "lineNumbers": true,
         "editorSetting": {
@@ -927,143 +851,19 @@
         ]
       },
       "apps": [],
-      "runtimeInfos": {
-        "jobUrl": {
-          "propertyName": "jobUrl",
-          "label": "SPARK JOB",
-          "tooltip": "View in Spark web UI",
-          "group": "spark",
-          "values": [
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=446",
-              "$$hashKey": "object:56919"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=447",
-              "$$hashKey": "object:56920"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=448",
-              "$$hashKey": "object:56921"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=449",
-              "$$hashKey": "object:56922"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=450",
-              "$$hashKey": "object:56923"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=451",
-              "$$hashKey": "object:56924"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=452",
-              "$$hashKey": "object:56925"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=453",
-              "$$hashKey": "object:56926"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=454",
-              "$$hashKey": "object:56927"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=455",
-              "$$hashKey": "object:56928"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=456",
-              "$$hashKey": "object:56929"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=457",
-              "$$hashKey": "object:56930"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=458",
-              "$$hashKey": "object:56931"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=459",
-              "$$hashKey": "object:56932"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=460",
-              "$$hashKey": "object:56933"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=461",
-              "$$hashKey": "object:56934"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=462",
-              "$$hashKey": "object:56935"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=463",
-              "$$hashKey": "object:56936"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=464",
-              "$$hashKey": "object:56937"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=465",
-              "$$hashKey": "object:56938"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=466",
-              "$$hashKey": "object:56939"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=467",
-              "$$hashKey": "object:56940"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=468",
-              "$$hashKey": "object:56941"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=469",
-              "$$hashKey": "object:56942"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=470",
-              "$$hashKey": "object:56943"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=471",
-              "$$hashKey": "object:56944"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=472",
-              "$$hashKey": "object:56945"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=473",
-              "$$hashKey": "object:56946"
-            }
-          ],
-          "interpreterSettingId": "spark"
-        }
-      },
+      "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696109_980448845",
+      "jobName": "paragraph_1622908580661_632743152",
       "id": "20190716-180644_1467492046",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T04:51:07+0000",
-      "dateFinished": "2021-06-02T04:51:10+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39572"
+      "dateCreated": "2021-06-05T15:56:20+0000",
+      "status": "READY",
+      "$$hashKey": "object:2240"
     },
     {
       "title": "[ML 알고리즘 소개 : 4) Logistic Regression]",
       "text": "%md\n##### - 로지스틱 회귀는 <font color='red'>선형 회귀 방식을 분류에 적용</font>한 알고리즘입니다.<br>- 선형 함수 대신 자연, 사회 현상에서 자주 발생하는 <font color='red'>시그모이드 함수</font>를 사용합니다. <br>- 시그모이드 함수는 신경망에도 활성함수로 초기에 많이 사용되었습니다.\n##### 1. <font color='red'>회귀</font>: 데이터의 특성과 분포를 나타내는 최적의 시그모이드 곡선(로짓변환)을 찾고<br>2. <font color='red'>분류</font>: 이를 기준으로 상위와 하위로 분류합니다.\n##### 결과로 레이블 [0,1] 또는 숫자(0 ~ 1)을 모두 얻을 수 있습니다.\n##### <center>![Lgistic Regression](https://objectstorage.us-ashburn-1.oraclecloud.com/p/CQGjy4-ItC2VGtPVoekW8zy9nslVFS1fW3EtcflYPqg/n/apackrsct01/b/datalake/o/8-1-Logistic-Regression.png)</center>\n##### <center>![Lgistic Regression](https://wikimedia.org/api/rest_v1/media/math/render/svg/9537e778e229470d85a68ee0b099c08298a1a3f6)</center>\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:13:36+0000",
+      "dateUpdated": "2021-06-05T15:56:20+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1077,9 +877,9 @@
         "editorMode": "ace/mode/markdown",
         "fontSize": 9,
         "editorHide": true,
+        "title": true,
         "results": {},
-        "enabled": true,
-        "title": true
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -1097,20 +897,18 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696116_1814151296",
+      "jobName": "paragraph_1622908580662_1689064339",
       "id": "20190716-072548_2010179218",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T04:13:36+0000",
-      "dateFinished": "2021-06-02T04:13:36+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39573"
+      "dateCreated": "2021-06-05T15:56:20+0000",
+      "status": "READY",
+      "$$hashKey": "object:2241"
     },
     {
       "title": "4-4) Logistic Regression 분석 결과 (89%)",
       "text": "%pyspark\nfrom pyspark.ml.classification import LogisticRegression\nfrom pyspark.ml.evaluation import BinaryClassificationEvaluator\n\nlr = LogisticRegression(featuresCol = 'features', labelCol = 'label', maxIter=10)\nlrModel = lr.fit(train)\n\npredictions = lrModel.transform(test)\npredictions.select('label', 'prediction', 'probability', 'HOUSEHOLD_SIZE', 'YRS_RESIDENCE', 'CUST_MARITAL_STATUS').show(5)\n\nevaluator = BinaryClassificationEvaluator()\nprint(\"Test Area Under ROC: \" + str(evaluator.evaluate(predictions, {evaluator.metricName: \"areaUnderROC\"})))",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:53:36+0000",
-      "progress": 100,
+      "dateUpdated": "2021-06-05T15:56:20+0000",
+      "progress": 0,
       "config": {
         "lineNumbers": true,
         "tableHide": false,
@@ -1142,99 +940,19 @@
         ]
       },
       "apps": [],
-      "runtimeInfos": {
-        "jobUrl": {
-          "propertyName": "jobUrl",
-          "label": "SPARK JOB",
-          "tooltip": "View in Spark web UI",
-          "group": "spark",
-          "values": [
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=474",
-              "$$hashKey": "object:59252"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=475",
-              "$$hashKey": "object:59253"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=476",
-              "$$hashKey": "object:59254"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=477",
-              "$$hashKey": "object:59255"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=478",
-              "$$hashKey": "object:59256"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=479",
-              "$$hashKey": "object:59257"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=480",
-              "$$hashKey": "object:59258"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=481",
-              "$$hashKey": "object:59259"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=482",
-              "$$hashKey": "object:59260"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=483",
-              "$$hashKey": "object:59261"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=484",
-              "$$hashKey": "object:59262"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=485",
-              "$$hashKey": "object:59263"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=486",
-              "$$hashKey": "object:59264"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=487",
-              "$$hashKey": "object:59265"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=488",
-              "$$hashKey": "object:59266"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=489",
-              "$$hashKey": "object:59267"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=490",
-              "$$hashKey": "object:59268"
-            }
-          ],
-          "interpreterSettingId": "spark"
-        }
-      },
+      "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696116_1751587160",
+      "jobName": "paragraph_1622908580662_286633986",
       "id": "20190710-191747_1914474814",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T04:52:20+0000",
-      "dateFinished": "2021-06-02T04:52:21+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39574"
+      "dateCreated": "2021-06-05T15:56:20+0000",
+      "status": "READY",
+      "$$hashKey": "object:2242"
     },
     {
       "title": "[ML 알고리즘 소개 : Boosting Algorithm]",
       "text": "%md\n##### <font color='red'>간단한 결정트리 분류기(약한 분류기)</font>로 먼저 분류한 후, 잘못 예측한 데이터를 가중치(+/-)를 주어 <font color='red'>오류를 보정/변경</font>하고, 이를 기반으로 <font color='red'>재분류</font>하는 과정을 순차적으로 반복하여 모델들을 학습시키는 <font color='red'>앙상블</font> 기법입니다.<br>오류 보정 방식이기에 <font color='red'>분류 효율이 상대적으로 좋으나</font> 순차적인 학습 과정때문에 <font color='red'>학습 시간이 오래 걸리고 과적합 오류를 유발</font>할 수 있습니다.\n![Boosting](https://objectstorage.us-ashburn-1.oraclecloud.com/p/B735MGwYiPNfmomB5nCTu0XjTvZ_VKxcfJ5xyVyUFvY/n/apackrsct01/b/datalake/o/8-4-Boosting.png)\n\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:13:32+0000",
+      "dateUpdated": "2021-06-05T15:56:20+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1248,9 +966,9 @@
         "editorMode": "ace/mode/markdown",
         "fontSize": 9,
         "editorHide": true,
+        "title": true,
         "results": {},
-        "enabled": true,
-        "title": true
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -1268,19 +986,17 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696116_820020748",
+      "jobName": "paragraph_1622908580662_1965220596",
       "id": "20190716-084856_925580327",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T04:13:32+0000",
-      "dateFinished": "2021-06-02T04:13:32+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39575"
+      "dateCreated": "2021-06-05T15:56:20+0000",
+      "status": "READY",
+      "$$hashKey": "object:2243"
     },
     {
       "title": "[ML 알고리즘 소개 : 5) Gradient Boosted Tree]",
       "text": "%md\n##### Boosting Algorithm의 가중치 변경(<font color='red'>오류 보정</font>)에 머신 러닝에서 많이 사용되는 <font color='red'>경사 하강법(Gradient Descent)</font>을 사용한다. 분류와 회귀에 모두 사용된다. GBT의 <font color='red'>느린 수행 시간과 과적합 문제를 해결</font>한 <font color='red'>XGBoost, LightBoost</font>등으로로 발전되어 분류 분야에서 많이 사용되고 있습니다.\n##### <center>![Boosting](https://objectstorage.us-ashburn-1.oraclecloud.com/p/NSTvE07O4xbGixh4kH_PG0-tgYvXlNZ0_BBNVCeKyPs/n/apackrsct01/b/datalake/o/8-4-Gradient-Descent.png)</center>\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T02:56:57+0000",
+      "dateUpdated": "2021-06-05T15:56:20+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1294,9 +1010,9 @@
         "editorMode": "ace/mode/markdown",
         "fontSize": 9,
         "editorHide": true,
+        "title": true,
         "results": {},
-        "enabled": true,
-        "title": true
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -1314,19 +1030,17 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696116_1392005785",
+      "jobName": "paragraph_1622908580662_559940911",
       "id": "20190726-084915_1393717489",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T02:56:57+0000",
-      "dateFinished": "2021-06-02T02:56:57+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39576"
+      "dateCreated": "2021-06-05T15:56:20+0000",
+      "status": "READY",
+      "$$hashKey": "object:2244"
     },
     {
       "title": "4-5) GBT Classifier 분석 결과 (94%)",
       "text": "%pyspark\nfrom pyspark.ml.classification import GBTClassifier\nfrom pyspark.ml.evaluation import BinaryClassificationEvaluator\n\ngbt = GBTClassifier(maxIter=10)\ngbtModel = gbt.fit(train)\n\npredictions = gbtModel.transform(test)\npredictions.select('label', 'prediction', 'probability', 'HOUSEHOLD_SIZE', 'YRS_RESIDENCE', 'CUST_MARITAL_STATUS').show(5)\n\nevaluator = BinaryClassificationEvaluator()\nprint(\"Test Area Under ROC: \" + str(evaluator.evaluate(predictions, {evaluator.metricName: \"areaUnderROC\"})))",
       "user": "anonymous",
-      "dateUpdated": "2021-06-02T04:54:32+0000",
+      "dateUpdated": "2021-06-05T15:56:20+0000",
       "progress": 0,
       "config": {
         "lineNumbers": true,
@@ -1358,370 +1072,18 @@
         ]
       },
       "apps": [],
-      "runtimeInfos": {
-        "jobUrl": {
-          "propertyName": "jobUrl",
-          "label": "SPARK JOB",
-          "tooltip": "View in Spark web UI",
-          "group": "spark",
-          "values": [
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=516",
-              "$$hashKey": "object:78927"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=517",
-              "$$hashKey": "object:78928"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=518",
-              "$$hashKey": "object:78929"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=519",
-              "$$hashKey": "object:78930"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=520",
-              "$$hashKey": "object:78931"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=521",
-              "$$hashKey": "object:78932"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=522",
-              "$$hashKey": "object:78933"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=523",
-              "$$hashKey": "object:78934"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=524",
-              "$$hashKey": "object:78935"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=525",
-              "$$hashKey": "object:78936"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=526",
-              "$$hashKey": "object:78937"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=527",
-              "$$hashKey": "object:78938"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=528",
-              "$$hashKey": "object:78939"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=529",
-              "$$hashKey": "object:78940"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=530",
-              "$$hashKey": "object:78941"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=531",
-              "$$hashKey": "object:78942"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=532",
-              "$$hashKey": "object:78943"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=533",
-              "$$hashKey": "object:78944"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=534",
-              "$$hashKey": "object:78945"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=535",
-              "$$hashKey": "object:78946"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=536",
-              "$$hashKey": "object:78947"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=537",
-              "$$hashKey": "object:78948"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=538",
-              "$$hashKey": "object:78949"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=539",
-              "$$hashKey": "object:78950"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=540",
-              "$$hashKey": "object:78951"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=541",
-              "$$hashKey": "object:78952"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=542",
-              "$$hashKey": "object:78953"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=543",
-              "$$hashKey": "object:78954"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=544",
-              "$$hashKey": "object:78955"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=545",
-              "$$hashKey": "object:78956"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=546",
-              "$$hashKey": "object:78957"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=547",
-              "$$hashKey": "object:78958"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=548",
-              "$$hashKey": "object:78959"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=549",
-              "$$hashKey": "object:78960"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=550",
-              "$$hashKey": "object:78961"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=551",
-              "$$hashKey": "object:78962"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=552",
-              "$$hashKey": "object:78963"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=553",
-              "$$hashKey": "object:78964"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=554",
-              "$$hashKey": "object:78965"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=555",
-              "$$hashKey": "object:78966"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=556",
-              "$$hashKey": "object:78967"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=557",
-              "$$hashKey": "object:78968"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=558",
-              "$$hashKey": "object:78969"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=559",
-              "$$hashKey": "object:78970"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=560",
-              "$$hashKey": "object:78971"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=561",
-              "$$hashKey": "object:78972"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=562",
-              "$$hashKey": "object:78973"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=563",
-              "$$hashKey": "object:78974"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=564",
-              "$$hashKey": "object:78975"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=565",
-              "$$hashKey": "object:78976"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=566",
-              "$$hashKey": "object:78977"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=567",
-              "$$hashKey": "object:78978"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=568",
-              "$$hashKey": "object:78979"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=569",
-              "$$hashKey": "object:78980"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=570",
-              "$$hashKey": "object:78981"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=571",
-              "$$hashKey": "object:78982"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=572",
-              "$$hashKey": "object:78983"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=573",
-              "$$hashKey": "object:78984"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=574",
-              "$$hashKey": "object:78985"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=575",
-              "$$hashKey": "object:78986"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=576",
-              "$$hashKey": "object:78987"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=577",
-              "$$hashKey": "object:78988"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=578",
-              "$$hashKey": "object:78989"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=579",
-              "$$hashKey": "object:78990"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=580",
-              "$$hashKey": "object:78991"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=581",
-              "$$hashKey": "object:78992"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=582",
-              "$$hashKey": "object:78993"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=583",
-              "$$hashKey": "object:78994"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=584",
-              "$$hashKey": "object:78995"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=585",
-              "$$hashKey": "object:78996"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=586",
-              "$$hashKey": "object:78997"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=587",
-              "$$hashKey": "object:78998"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=588",
-              "$$hashKey": "object:78999"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=589",
-              "$$hashKey": "object:79000"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=590",
-              "$$hashKey": "object:79001"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=591",
-              "$$hashKey": "object:79002"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=592",
-              "$$hashKey": "object:79003"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=593",
-              "$$hashKey": "object:79004"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=594",
-              "$$hashKey": "object:79005"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=595",
-              "$$hashKey": "object:79006"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=596",
-              "$$hashKey": "object:79007"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=597",
-              "$$hashKey": "object:79008"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=598",
-              "$$hashKey": "object:79009"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=599",
-              "$$hashKey": "object:79010"
-            },
-            {
-              "jobUrl": "http://c821830fa2d3:4040/jobs/job?id=600",
-              "$$hashKey": "object:79011"
-            }
-          ],
-          "interpreterSettingId": "spark"
-        }
-      },
+      "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696116_1231626331",
+      "jobName": "paragraph_1622908580662_67739149",
       "id": "20190710-201523_881765057",
-      "dateCreated": "2021-06-01T06:58:16+0000",
-      "dateStarted": "2021-06-02T04:54:06+0000",
-      "dateFinished": "2021-06-02T04:54:09+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:39577"
+      "dateCreated": "2021-06-05T15:56:20+0000",
+      "status": "READY",
+      "$$hashKey": "object:2245"
     },
     {
       "text": "%md\n",
       "user": "anonymous",
-      "dateUpdated": "2021-06-01T12:35:48+0000",
+      "dateUpdated": "2021-06-05T15:56:20+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -1733,9 +1095,9 @@
         "colWidth": 12,
         "editorMode": "ace/mode/markdown",
         "fontSize": 9,
+        "editorHide": true,
         "results": {},
-        "enabled": true,
-        "editorHide": true
+        "enabled": true
       },
       "settings": {
         "params": {},
@@ -1744,15 +1106,15 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1622530696126_559669331",
+      "jobName": "paragraph_1622908580662_655531588",
       "id": "20190729-150635_1507272573",
-      "dateCreated": "2021-06-01T06:58:16+0000",
+      "dateCreated": "2021-06-05T15:56:20+0000",
       "status": "READY",
-      "$$hashKey": "object:39578"
+      "$$hashKey": "object:2246"
     }
   ],
   "name": "적립카드 발급 대상 분석(Velucid 2021.06.02)",
-  "id": "2G79TE7SZ",
+  "id": "2G8M9ZRXJ",
   "defaultInterpreterGroup": "spark",
   "version": "0.9.0",
   "noteParams": {},
