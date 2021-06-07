@@ -40,7 +40,7 @@ echo ""
 cp /opt/zeppelin/conf/zeppelin-env.sh.template /opt/zeppelin/conf/zeppelin-env.sh
 echo "" >> /opt/zeppelin/conf/zeppelin-env.sh
 echo "export SPARK_HOME=/opt/spark" >> /opt/zeppelin/conf/zeppelin-env.sh
-echo "export PYSPARK_PYTHON=/usr/bin/python" >> /opt/zeppelin/conf/zeppelin-env.sh
+echo "export PYSPARK_PYTHON=/usr/bin/python3" >> /opt/zeppelin/conf/zeppelin-env.sh
 echo "export ZEPPELIN_ADDR=0.0.0.0" >> /opt/zeppelin/conf/zeppelin-env.sh
 
 echo "##### setup environment #####"
