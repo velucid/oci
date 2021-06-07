@@ -8,10 +8,12 @@ apt install -y default-jre
 echo "##### update python package #####"
 echo ""
 
-pip install --upgrade pip
-pip install numpy matplotlib pandas
-pip install jupyter-client grpcio protobuf 
-pip install ipython ipykernel 
+pip3 install --upgrade pip
+pip3 install ipython ipykernel
+pip3 install keras tensorflow
+pip3 install pyspark-pandas 
+pip3 install numpy matplotlib
+pip3 install jupyter-client grpcio protobuf 
 #pip3 install --upgrade ipython
 
 echo "##### install spark #####"
