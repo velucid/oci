@@ -4,13 +4,13 @@
 ##### Install Open-JDK 8         #####
 #######################################
 
+apt update -y
 apt install -y openjdk-8-jdk
 
 #######################################
 ##### Install Python 3.7          #####
 #######################################
 
-apt update -y
 apt install -y python3.7
 apt install -y python3.7-venv
 python3.7 -m venv /opt/python
