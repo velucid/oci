@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #######################################
-##### Install Open-Java 8         #####
+##### Install Open-JDK 8         #####
 #######################################
 
 apt install -y openjdk-8-jdk
@@ -17,7 +17,7 @@ python3.7 -m venv /opt/python
 source /opt/python/bin/activate
 apt install -y python3-pip
 python3.7 -m pip install --upgrade pip
-pip --version	# it shall be python3.7
+pip --version
 
 #######################################
 ##### Install Python Packages     #####
@@ -52,14 +52,14 @@ echo "export PATH=/opt/python/bin:/opt/spark/bin:\$PATH" >> /opt/spark/conf/spar
 echo "" >> /opt/spark/conf/spark-env.sh
 
 #######################################
-##### Install Zeppelin            #####
+##### Install Zeppelin 0.8.2      #####
 #######################################
 
 cd /opt
-wget https://mirror.navercorp.com/apache/zeppelin/zeppelin-0.9.0/zeppelin-0.9.0-bin-all.tgz
-tar -xvf zeppelin-0.9.0-bin-all.tgz
-mv zeppelin-0.9.0-bin-all zeppelin
-rm -f zeppelin-0.9.0-bin-all.tgz
+wget https://mirror.navercorp.com/apache/zeppelin/zeppelin-0.8.2/zeppelin-0.8.2-bin-all.tgz 
+tar -xvf zeppelin-0.8.2-bin-all.tgz 
+mv zeppelin-0.8.2-bin-all zeppelin
+rm -f zeppelin-0.8.2-bin-all.tgz 
 
 #######################################
 ##### Config Zeppelin Environment #####
