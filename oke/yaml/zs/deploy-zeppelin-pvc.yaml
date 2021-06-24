@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zeppelin
+  labels:
+    app: zeppelin
+spec:
+  selector:
+    matchLabels:
+      app: zeppelin
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: zeppelin
+    spec:
+      #serviceAccountName: zeppelin-account
+      containers:
+      - name: zeppelin
+        image: icn.ocir.io/apackrsct01/zeppelin:0.8.2
+        #imagePullPolicy: Always
+        #command: ["/bin/sleep", "3650d"]
+        command: ["/bin/bash", "-c", "/opt/zeppelin/bin/zeppelin.sh"]
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ZEPPELIN_ADDR
+          value: 0.0.0.0
+        - name: ZEPPELIN_CONF_DIR
+          value: /zeppelin/user01/notebook
+        - name: ZEPPELIN_NOTEBOOK_DIR
+          value: /zeppelin/user01/notebook
+        - name: ZEPPELIN_LOG_DIR
+          value: /zeppelin/user01/logs
+        volumeMounts:
+          - name: zeppelin-oci-block-volume
+            mountPath: /zeppelin
+      volumes:
+        - name: zeppelin-oci-block-volume
+          persistentVolumeClaim:
+            claimName: zeppelin-oci-pvc
+      imagePullSecrets:
+      - name: ocir-icn-secret
