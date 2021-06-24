@@ -5,7 +5,7 @@ metadata:
 spec:
   storageClassName: "oci-bv"
   accessModes:
-    - ReadWriteOne
+    - ReadWriteOnce
   resources:
     requests:
       storage: 50Gi
