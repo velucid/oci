@@ -14,12 +14,9 @@ spec:
       labels:
         app: zeppelin
     spec:
-      #serviceAccountName: zeppelin-account
       containers:
       - name: zeppelin
         image: icn.ocir.io/apackrsct01/zeppelin:0.8.2
-        #imagePullPolicy: Always
-        #command: ["/bin/sleep", "3650d"]
         command: ["/bin/bash", "-c", "/opt/zeppelin/bin/zeppelin.sh"]
         ports:
         - containerPort: 8080
