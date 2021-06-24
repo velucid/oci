@@ -24,7 +24,7 @@ spec:
         - name: ZEPPELIN_ADDR
           value: 0.0.0.0
         - name: ZEPPELIN_CONF_DIR
-          value: /zeppelin/user01/notebook
+          value: /zeppelin/user01/conf
         - name: ZEPPELIN_NOTEBOOK_DIR
           value: /zeppelin/user01/notebook
         - name: ZEPPELIN_LOG_DIR
