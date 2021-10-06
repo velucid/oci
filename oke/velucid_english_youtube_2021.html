@@ -1,0 +1,616 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+
+<link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+.mac-os-11 { --title-bar-height:28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex:2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
+    }
+
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+/*.html-for-mac {
+    --item-hover-bg-color: #E6F0FE;
+}*/
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+    opacity: 0.4;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+.menu-item-container a.menu-style-btn {
+    background-color: #f5f8fa;
+    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
+}
+
+
+
+</style><title>velucid_english_youtube_2021</title>
+</head>
+<body class='typora-export os-windows'><div class='typora-export-content'>
+<div id='write'  class=''><h3 id='7-of-the-best-celebrity-commencement-speeches-of-all-time'><span>7 Of The Best Celebrity Commencement Speeches Of All Time</span></h3><p><a href='https://www.topuniversities.com/student-info/university-news/7-best-celebrity-commencement-speeches-all-time' target='_blank' class='url'>https://www.topuniversities.com/student-info/university-news/7-best-celebrity-commencement-speeches-all-time</a>
+<span>Bill Clinton inaugural address: Jan. 20, 1997 : </span><a href='https://www.youtube.com/watch?v=Tu33kA83Rfo&amp;t=26s' target='_blank' class='url'>https://www.youtube.com/watch?v=Tu33kA83Rfo&t=26s</a></p><h3 id='7esl-learning-english'><span>7ESL Learning English</span></h3><p><span>ALL TENSES in 30 Minutes : </span><a href='https://www.youtube.com/watch?v=PQG_gYFePD4' target='_blank' class='url'>https://www.youtube.com/watch?v=PQG_gYFePD4</a>
+<span>WATCH MORE: </span>
+<span>★ Grammar: </span><a href='https://goo.gl/pK8eBC' target='_blank' class='url'>https://goo.gl/pK8eBC</a><span> </span>
+<span>★ Vocabulary: </span><a href='https://goo.gl/d4dJfR' target='_blank' class='url'>https://goo.gl/d4dJfR</a>
+<span>★ Expressions: </span><a href='https://goo.gl/mNKvAB' target='_blank' class='url'>https://goo.gl/mNKvAB</a>
+<span>★ Phrasal Verbs: </span><a href='https://goo.gl/Riw1r6' target='_blank' class='url'>https://goo.gl/Riw1r6</a>
+<span>★ Idioms: </span><a href='https://goo.gl/KrEMRx' target='_blank' class='url'>https://goo.gl/KrEMRx</a>
+<span>★ Conversations: </span><a href='https://goo.gl/MxQEnV' target='_blank' class='url'>https://goo.gl/MxQEnV</a>
+<span>★ Kids Vocabulary: </span><a href='https://goo.gl/K96toU' target='_blank' class='url'>https://goo.gl/K96toU</a>
+<span>★ English Writing: </span><a href='https://goo.gl/3zxuQB' target='_blank' class='url'>https://goo.gl/3zxuQB</a>
+<span>★ IELTS: </span><a href='https://goo.gl/5fi2Sk' target='_blank' class='url'>https://goo.gl/5fi2Sk</a>
+<span>★ TOEFL: </span><a href='https://goo.gl/3rdyML' target='_blank' class='url'>https://goo.gl/3rdyML</a>
+<span>★ British vs. American English: </span><a href='https://goo.gl/ySYPWp' target='_blank' class='url'>https://goo.gl/ySYPWp</a>
+<span>★ Pronunciation: </span><a href='https://goo.gl/UXYD2M' target='_blank' class='url'>https://goo.gl/UXYD2M</a>
+<span>★ Business English: </span><a href='https://goo.gl/xpVNkr' target='_blank' class='url'>https://goo.gl/xpVNkr</a></p><hr /><p><span>Learn 337 Fluent English Phrasal Verbs : </span><a href='https://www.youtube.com/watch?v=H1jDWSKljvo' target='_blank' class='url'>https://www.youtube.com/watch?v=H1jDWSKljvo</a></p><p><span>English Listening : </span><a href='https://www.youtube.com/channel/UCOHVic4NVNvTk2THvUUfhqQ/videos' target='_blank' class='url'>https://www.youtube.com/channel/UCOHVic4NVNvTk2THvUUfhqQ/videos</a></p><ul><li><p><span>Learn English via Listening Level 3 Unit 1</span></p><ul><li><span>Level 3 Unit 1 Louis Pasteur : </span><a href='https://www.youtube.com/watch?v=4EIuQ0YoJSM' target='_blank' class='url'>https://www.youtube.com/watch?v=4EIuQ0YoJSM</a></li></ul></li><li><p><span>Learn English via Listening Level 5 Unit 1</span></p><ul><li><span>Winston Churchill Braces Britons To Their Task : </span><a href='https://www.youtube.com/watch?v=cbHtFaOqMZs' target='_blank' class='url'>https://www.youtube.com/watch?v=cbHtFaOqMZs</a></li></ul></li></ul><p><span>120 Common Phrasal Verbs : </span><a href='https://www.youtube.com/watch?v=obYDUyKxc7I' target='_blank' class='url'>https://www.youtube.com/watch?v=obYDUyKxc7I</a>
+<span>100+ Common Adjective Preposition : </span><a href='https://www.youtube.com/watch?v=z0I4YTndRcs' target='_blank' class='url'>https://www.youtube.com/watch?v=z0I4YTndRcs</a>
+<span>The Top 10 – Pronunciation Guide : </span><a href='https://www.youtube.com/watch?v=h1kBRXkQ6cI' target='_blank' class='url'>https://www.youtube.com/watch?v=h1kBRXkQ6cI</a>
+<span>Native Speakers CAN’T Understand : </span><a href='https://www.youtube.com/watch?v=WxmEQsI_epM' target='_blank' class='url'>https://www.youtube.com/watch?v=WxmEQsI_epM</a></p><p><span>English Grammar Course for Intermediate Level Students. </span><a href='https://www.youtube.com/watch?v=lfMU5YQyaGQ' target='_blank' class='url'>https://www.youtube.com/watch?v=lfMU5YQyaGQ</a></p><hr /><h3 id='learn-english--american-textbook-reading'><span>Learn English | American Textbook Reading </span></h3><h5 id='american-textbook-reading-grade-1--social-studies'><span>American Textbook Reading Grade 1 : Social Studies</span></h5><ul><li><span>Part 1 Home, School, and Neighborhood</span></li></ul><ol start='' ><li><span>Family and Home: </span><a href='https://youtu.be/CkcG4P-AcjA' target='_blank' class='url'>https://youtu.be/CkcG4P-AcjA</a></li><li><span>Time for School: </span><a href='https://youtu.be/ID9T4EQ-9Io' target='_blank' class='url'>https://youtu.be/ID9T4EQ-9Io</a></li><li><span>Community: </span><a href='https://youtu.be/gfSjMMXVAiA' target='_blank' class='url'>https://youtu.be/gfSjMMXVAiA</a></li></ol><ul><li><span>Part 2 We Are Good Citizens</span></li></ul><ol start='4' ><li><span>People Need Law: </span><a href='https://youtu.be/mZz1aNeMSxI' target='_blank' class='url'>https://youtu.be/mZz1aNeMSxI</a></li><li><span>What Can Citizens Do?: </span><a href='https://youtu.be/vxp-fBC8FFs' target='_blank' class='url'>https://youtu.be/vxp-fBC8FFs</a></li><li><span>Choosing Community Leaders: </span><a href='https://youtu.be/2kx84Ykf-dA' target='_blank' class='url'>https://youtu.be/2kx84Ykf-dA</a></li></ol><ul><li><span>Part 3 Everything Changes</span></li></ul><ol start='7' ><li><span>Things Change with Time: </span><a href='https://youtu.be/hkn4g2RSDDE' target='_blank' class='url'>https://youtu.be/hkn4g2RSDDE</a></li><li><span>Changes in Family Life: </span><a href='https://youtu.be/I8w1CpAnT2k' target='_blank' class='url'>https://youtu.be/I8w1CpAnT2k</a></li><li><span>Changes in Communication: </span><a href='https://youtu.be/9zxwSNaTmc0' target='_blank' class='url'>https://youtu.be/9zxwSNaTmc0</a></li></ol><ul><li><span>Part 4 People Work</span></li></ul><ol start='10' ><li><span>Needs and Wants: </span><a href='https://youtu.be/tNCVMQPRbBg' target='_blank' class='url'>https://youtu.be/tNCVMQPRbBg</a></li><li><span>Goods and Services: </span><a href='https://youtu.be/B8B07E4On5E' target='_blank' class='url'>https://youtu.be/B8B07E4On5E</a></li><li><span>Spending and Saving: </span><a href='https://youtu.be/d88wZfTrxWE' target='_blank' class='url'>https://youtu.be/d88wZfTrxWE</a></li></ol><ul><li><span>Part 5 Where We Live</span></li></ul><ol start='13' ><li><span>Here on Earth: </span><a href='https://youtu.be/KRfABAUcwK0' target='_blank' class='url'>https://youtu.be/KRfABAUcwK0</a></li><li><span>Weather and Seasons: </span><a href='https://youtu.be/z4QGzFzUn9A' target='_blank' class='url'>https://youtu.be/z4QGzFzUn9A</a></li><li><span>Land and Water: </span><a href='https://youtu.be/26186SCFtEo' target='_blank' class='url'>https://youtu.be/26186SCFtEo</a></li></ol><h5 id='american-textbook-reading-grade-1--science'><span>American Textbook Reading Grade 1 : Science </span></h5><ul><li><span>Part 1 Life Science</span></li></ul><ol start='' ><li><span>Parts of Plant: </span><a href='https://youtu.be/cBvV5t_YRQM' target='_blank' class='url'>https://youtu.be/cBvV5t_YRQM</a></li><li><span>Life Cycle of a Plant: </span><a href='https://youtu.be/nCktNxwt5L0' target='_blank' class='url'>https://youtu.be/nCktNxwt5L0</a></li><li><span>What Plants Need to Grow: </span><a href='https://youtu.be/arj7CI0NUrU' target='_blank' class='url'>https://youtu.be/arj7CI0NUrU</a></li><li><span>Types of Animals: </span><a href='https://youtu.be/c-2EYsOl4rA' target='_blank' class='url'>https://youtu.be/c-2EYsOl4rA</a></li><li><span>Body Parts of Animals: </span><a href='https://youtu.be/IQbBqn4E68o' target='_blank' class='url'>https://youtu.be/IQbBqn4E68o</a></li><li><span>Where Animals Live: </span><a href='https://youtu.be/47hSAqmb5vE' target='_blank' class='url'>https://youtu.be/47hSAqmb5vE</a></li></ol><ul><li><span>Part 2 Earth Science</span></li></ul><ol start='7' ><li><span>Land and Water: </span><a href='https://youtu.be/BWri4Bcf6B8' target='_blank' class='url'>https://youtu.be/BWri4Bcf6B8</a></li><li><span>How Does Earth Change?: </span><a href='https://youtu.be/LB2N8SkmkdA' target='_blank' class='url'>https://youtu.be/LB2N8SkmkdA</a></li><li><span>Natural Resources: </span><a href='https://youtu.be/lf0Hkng-Jlc' target='_blank' class='url'>https://youtu.be/lf0Hkng-Jlc</a></li><li><span>Rocks and Soil: </span><a href='https://youtu.be/3cCMkZXm4Ts' target='_blank' class='url'>https://youtu.be/3cCMkZXm4Ts</a></li></ol><ul><li><span>Part 3 Physical Science </span></li></ul><ol start='11' ><li><span>Saving Natural Resources: </span><a href='https://youtu.be/PxasHbbPK1s' target='_blank' class='url'>https://youtu.be/PxasHbbPK1s</a></li><li><span>Matter and Senses: </span><a href='https://youtu.be/Z922FqIAOyU' target='_blank' class='url'>https://youtu.be/Z922FqIAOyU</a></li><li><span>Observing Matter: </span><a href='https://youtu.be/XhVWf_dp3Hw' target='_blank' class='url'>https://youtu.be/XhVWf_dp3Hw</a></li><li><span>Solid, Liquid, Gas: </span><a href='https://youtu.be/SPT5g9lFXGo' target='_blank' class='url'>https://youtu.be/SPT5g9lFXGo</a></li><li><span>Matter and Its Changes: </span><a href='https://youtu.be/bshhIUYZq0E' target='_blank' class='url'>https://youtu.be/bshhIUYZq0E</a></li></ol><h5 id='american-textbook-reading---science-02'><span>American Textbook Reading |  Science 02</span></h5><ul><li><span>Part 1 Life Science</span></li></ul><ol><li><span>What Animals Need to Grow: </span><a href='https://youtu.be/saVLZJQyiLc' target='_blank' class='url'>https://youtu.be/saVLZJQyiLc</a></li><li><span>Living Things vs Nonliving Things: </span><a href='https://youtu.be/XWyTndOCzSg' target='_blank' class='url'>https://youtu.be/XWyTndOCzSg</a></li><li><span>Adaptations for Survival: </span><a href='https://youtu.be/serA5khGRvM' target='_blank' class='url'>https://youtu.be/serA5khGRvM</a></li><li><span>The Human Life Cycle: </span><a href='https://youtu.be/feTaVkZr5K4' target='_blank' class='url'>https://youtu.be/feTaVkZr5K4</a></li></ol><ul><li><span>Part 2 Earth Science</span></li></ul><ol start='05' ><li><span>Weather: </span><a href='https://youtu.be/jikceF3EElE' target='_blank' class='url'>https://youtu.be/jikceF3EElE</a></li><li><span>Measuring the Weather: </span><a href='https://youtu.be/phSYNiOzmec' target='_blank' class='url'>https://youtu.be/phSYNiOzmec</a></li><li><span>Clouds and Rain: </span><a href='https://youtu.be/-siA4xjtiyY' target='_blank' class='url'>https://youtu.be/-siA4xjtiyY</a></li><li><span>Seasons: </span><a href='https://youtu.be/Uwk69VA0b0M' target='_blank' class='url'>https://youtu.be/Uwk69VA0b0M</a></li><li><span>The Sky: </span><a href='https://youtu.be/NPjYVqjGk2Y' target='_blank' class='url'>https://youtu.be/NPjYVqjGk2Y</a></li></ol><ul><li><span>Part 3 Physical Science</span></li></ul><ol start='10' ><li><span>Heat: </span><a href='https://youtu.be/WKFot38PFBg' target='_blank' class='url'>https://youtu.be/WKFot38PFBg</a></li><li><span>Light: </span><a href='https://youtu.be/lifu9RIpLgw' target='_blank' class='url'>https://youtu.be/lifu9RIpLgw</a></li><li><span>Sound: </span><a href='https://youtu.be/ezMdZ4rZIjA' target='_blank' class='url'>https://youtu.be/ezMdZ4rZIjA</a></li><li><span>Electricity: </span><a href='https://youtu.be/F25bDrYk5KU' target='_blank' class='url'>https://youtu.be/F25bDrYk5KU</a></li><li><span>Motion: </span><a href='https://youtu.be/d2TIFSpUSSY' target='_blank' class='url'>https://youtu.be/d2TIFSpUSSY</a></li><li><span>Magnets: </span><a href='https://youtu.be/AhI2KFMRyGw' target='_blank' class='url'>https://youtu.be/AhI2KFMRyGw</a></li></ol><h5 id='american-textbook-reading---science-03'><span>American Textbook Reading |  Science 03</span></h5><ul><li><span>Part 1 Lift Science</span></li></ul><ol start='' ><li><span>Living and Nonliving Things : </span><a href='https://www.youtube.com/watch?v=Ho2W_yOqHso' target='_blank' class='url'>https://www.youtube.com/watch?v=Ho2W_yOqHso</a></li><li><span>Plant Parts : </span><a href='https://www.youtube.com/watch?v=-T8y9AZhIMQ' target='_blank' class='url'>https://www.youtube.com/watch?v=-T8y9AZhIMQ</a></li><li></li></ol><h5 id='american-textbook-reading---science-04'><span>American Textbook Reading |  Science 04</span></h5><ul><li><span>Part 1 Lift Science</span></li></ul><ol start='' ><li><span>Grouping Plants : </span><a href='https://www.youtube.com/watch?v=UJuTMe2to2c' target='_blank' class='url'>https://www.youtube.com/watch?v=UJuTMe2to2c</a></li><li><span>How Seeds Are Scattered : </span><a href='https://www.youtube.com/watch?v=hfz0ccagzHY' target='_blank' class='url'>https://www.youtube.com/watch?v=hfz0ccagzHY</a></li><li><span>Light and Colors : </span><a href='https://www.youtube.com/watch?v=dtrN15aHYCs' target='_blank' class='url'>https://www.youtube.com/watch?v=dtrN15aHYCs</a></li></ol><h5 id='learn-english--reading-for-vocabulary--level-a'><span>Learn English | Reading for Vocabulary | Level A</span></h5><ol start='' ><li><span>We Eat Flowers! : </span><a href='https://www.youtube.com/watch?v=h1jwWJhiZaU&amp;t=1981s' target='_blank' class='url'>https://www.youtube.com/watch?v=h1jwWJhiZaU&t=1981s</a></li><li><span>Not Just for Food : </span><a href='https://www.youtube.com/watch?v=qVSAzggQezc' target='_blank' class='url'>https://www.youtube.com/watch?v=qVSAzggQezc</a></li><li><span>Keeping Warm : </span><a href='https://www.youtube.com/watch?v=IETEAkCUc9E' target='_blank' class='url'>https://www.youtube.com/watch?v=IETEAkCUc9E</a></li><li><span>Animals Help People : </span><a href='https://www.youtube.com/watch?v=1-7BZGeDNfo' target='_blank' class='url'>https://www.youtube.com/watch?v=1-7BZGeDNfo</a></li><li><span>Your Senses : </span><a href='https://www.youtube.com/watch?v=kVHI7Ag-Bv4' target='_blank' class='url'>https://www.youtube.com/watch?v=kVHI7Ag-Bv4</a></li><li><span>All Grown Up : </span><a href='https://www.youtube.com/watch?v=cYiir5edBTU' target='_blank' class='url'>https://www.youtube.com/watch?v=cYiir5edBTU</a></li><li><span>How Old is that Tree? : </span><a href='https://www.youtube.com/watch?v=1BWuSxLCorU' target='_blank' class='url'>https://www.youtube.com/watch?v=1BWuSxLCorU</a></li><li><span>Save the Forests : </span><a href='https://www.youtube.com/watch?v=H9Qvf8fbNWU' target='_blank' class='url'>https://www.youtube.com/watch?v=H9Qvf8fbNWU</a></li><li><span>The Seasons : </span><a href='https://www.youtube.com/watch?v=kCvCaa7PgMo' target='_blank' class='url'>https://www.youtube.com/watch?v=kCvCaa7PgMo</a></li><li><span>Bad Weather : </span><a href='https://www.youtube.com/watch?v=WUl1fp24cZo' target='_blank' class='url'>https://www.youtube.com/watch?v=WUl1fp24cZo</a></li><li><span>Dirt is Good!: </span><a href='https://youtu.be/Ng0i-VhSYCU' target='_blank' class='url'>https://youtu.be/Ng0i-VhSYCU</a></li><li><span>Soil Homes: </span><a href='https://youtu.be/Ixqm7tG_2h4' target='_blank' class='url'>https://youtu.be/Ixqm7tG_2h4</a></li><li><span>Energy: </span><a href='https://youtu.be/YT-QjCNBVGo' target='_blank' class='url'>https://youtu.be/YT-QjCNBVGo</a></li><li><span>Electricity: </span><a href='https://youtu.be/HsCjEk5stBc' target='_blank' class='url'>https://youtu.be/HsCjEk5stBc</a></li></ol><h5 id='learn-english--reading-for-vocabulary--level-b'><span>Learn English | Reading for Vocabulary | Level B </span></h5><ol start='' ><li><span>Sharks : </span><a href='https://www.youtube.com/watch?v=AJm6IFkZMoo' target='_blank' class='url'>https://www.youtube.com/watch?v=AJm6IFkZMoo</a></li><li><span>The Pacific Ocean : </span><a href='https://www.youtube.com/watch?v=3nC6n_cDikY&amp;t=396s' target='_blank' class='url'>https://www.youtube.com/watch?v=3nC6n_cDikY&t=396s</a></li><li><span>Polution : </span><a href='https://www.youtube.com/watch?v=ZBIdZIKFWAE' target='_blank' class='url'>https://www.youtube.com/watch?v=ZBIdZIKFWAE</a></li><li><span>We&#39;ve struck Gold! : </span><a href='https://www.youtube.com/watch?v=IH9-IgVIQ_A' target='_blank' class='url'>https://www.youtube.com/watch?v=IH9-IgVIQ_A</a></li><li><span>Let’s Use a Rock : </span><a href='https://www.youtube.com/watch?v=kzSSxgforwc' target='_blank' class='url'>https://www.youtube.com/watch?v=kzSSxgforwc</a></li><li><span>Mount Rushmore : </span><a href='https://www.youtube.com/watch?v=YXiNzPgvNi8' target='_blank' class='url'>https://www.youtube.com/watch?v=YXiNzPgvNi8</a></li><li><span>Let’s Ride into Space : </span><a href='https://www.youtube.com/watch?v=qBCVsvfiS4w' target='_blank' class='url'>https://www.youtube.com/watch?v=qBCVsvfiS4w</a></li><li><span>Eclipse : </span><a href='https://www.youtube.com/watch?v=h1Uz-UcOJ1g' target='_blank' class='url'>https://www.youtube.com/watch?v=h1Uz-UcOJ1g</a></li><li><span>How Much Do You Weigh? : </span><a href='https://www.youtube.com/watch?v=LX-YJLS5JAQ' target='_blank' class='url'>https://www.youtube.com/watch?v=LX-YJLS5JAQ</a></li><li><span>Bones : </span><a href='https://www.youtube.com/watch?v=oprvaQ2ZN24' target='_blank' class='url'>https://www.youtube.com/watch?v=oprvaQ2ZN24</a></li><li><span>Wow! That’s Tall! : </span><a href='https://www.youtube.com/watch?v=kocjBepQFNQ' target='_blank' class='url'>https://www.youtube.com/watch?v=kocjBepQFNQ</a></li><li><span>Staying Healthy : </span><a href='https://www.youtube.com/watch?v=Rd9l6SHZtQM' target='_blank' class='url'>https://www.youtube.com/watch?v=Rd9l6SHZtQM</a></li><li><span>Edison the Wizard : </span><a href='https://www.youtube.com/watch?v=_9hy6QSDgVU' target='_blank' class='url'>https://www.youtube.com/watch?v=_9hy6QSDgVU</a></li><li><span>A Dream Come True : </span><a href='https://www.youtube.com/watch?v=Le0cYSPwM08' target='_blank' class='url'>https://www.youtube.com/watch?v=Le0cYSPwM08</a></li><li><span>Great Player, Great Heart : </span><a href='https://www.youtube.com/watch?v=bMT5XETEJqo' target='_blank' class='url'>https://www.youtube.com/watch?v=bMT5XETEJqo</a></li></ol><h5 id='learn-english--reading-for-vocabulary--level-c'><span>Learn English | Reading for Vocabulary | Level C</span></h5><p><span>Science, Social Studies, Health, Fine Arts, Math, Entertainment</span></p><ol start='' ><li><span>In a Land before Time : </span><a href='https://www.youtube.com/watch?v=mMqJ7_f0nTw' target='_blank' class='url'>https://www.youtube.com/watch?v=mMqJ7_f0nTw</a></li><li><span>Smart as a Chimp : </span><a href='https://www.youtube.com/watch?v=76Zukmb9LWY' target='_blank' class='url'>https://www.youtube.com/watch?v=76Zukmb9LWY</a></li><li><span>What&#39;s after Seven? : </span><a href='https://www.youtube.com/watch?v=MXWh1q_cwnU' target='_blank' class='url'>https://www.youtube.com/watch?v=MXWh1q_cwnU</a></li><li><span>Fire under the Earth : </span><a href='https://www.youtube.com/watch?v=jBfl35u9sAI' target='_blank' class='url'>https://www.youtube.com/watch?v=jBfl35u9sAI</a></li><li><span>Never a Warm Day : </span><a href='https://www.youtube.com/watch?v=toQmHOdqOPQ' target='_blank' class='url'>https://www.youtube.com/watch?v=toQmHOdqOPQ</a></li><li><span>Fossil Fuels : </span><a href='https://www.youtube.com/watch?v=S9HNMR0_tuE' target='_blank' class='url'>https://www.youtube.com/watch?v=S9HNMR0_tuE</a></li><li><span>Do You Hear That? : </span><a href='https://www.youtube.com/watch?v=qtmIcwy3k6s' target='_blank' class='url'>https://www.youtube.com/watch?v=qtmIcwy3k6s</a></li><li><span>Too Cool : </span><a href='https://www.youtube.com/watch?v=4ZKYKL7HqbQ' target='_blank' class='url'>https://www.youtube.com/watch?v=4ZKYKL7HqbQ</a><span> </span></li><li><span>Bravo! Encore! : </span><a href='https://www.youtube.com/watch?v=7hGaT4MUSmM' target='_blank' class='url'>https://www.youtube.com/watch?v=7hGaT4MUSmM</a></li><li><span>Worker of the Year : </span><a href='https://www.youtube.com/watch?v=n-mMTLONzEA' target='_blank' class='url'>https://www.youtube.com/watch?v=n-mMTLONzEA</a></li><li><span>Early Robots : </span><a href='https://www.youtube.com/watch?v=nXenSTHI4Ho' target='_blank' class='url'>https://www.youtube.com/watch?v=nXenSTHI4Ho</a></li><li><span>Robot Actors : </span><a href='https://www.youtube.com/watch?v=DLWuRhEV3Jc' target='_blank' class='url'>https://www.youtube.com/watch?v=DLWuRhEV3Jc</a></li><li><span>Computer Movies : </span><a href='https://www.youtube.com/watch?v=CDjY3cF4880' target='_blank' class='url'>https://www.youtube.com/watch?v=CDjY3cF4880</a></li><li><span>Mighty Paul Bunyan : </span><a href='https://www.youtube.com/watch?v=hfaKrAfo_Go' target='_blank' class='url'>https://www.youtube.com/watch?v=hfaKrAfo_Go</a></li><li><span>Along Came a Mouse : </span><a href='https://www.youtube.com/watch?v=Z88Sq4yzh3g' target='_blank' class='url'>https://www.youtube.com/watch?v=Z88Sq4yzh3g</a></li></ol><h5 id='learn-english--reading-for-vocabulary--level-d'><span>Learn English | Reading for Vocabulary | Level D</span></h5><ul><li><span>Architecture</span></li></ul><ol start='' ><li><span>A Dream Job : </span><a href='https://www.youtube.com/watch?v=OKY68kw6Yvo' target='_blank' class='url'>https://www.youtube.com/watch?v=OKY68kw6Yvo</a></li><li><span>Amazing Architecture : </span><a href='https://www.youtube.com/watch?v=we2tR4rM1FE' target='_blank' class='url'>https://www.youtube.com/watch?v=we2tR4rM1FE</a></li><li><span>Frank Lloyd Wright : </span><a href='https://www.youtube.com/watch?v=U001MiPgUtE' target='_blank' class='url'>https://www.youtube.com/watch?v=U001MiPgUtE</a></li></ol><ul><li><span>Sports</span></li></ul><ol start='4' ><li><span>The Human Machine : </span><a href='https://www.youtube.com/watch?v=N2CQ6bBbQCU' target='_blank' class='url'>https://www.youtube.com/watch?v=N2CQ6bBbQCU</a></li><li><span>The Ancient Olympics : </span><a href='https://www.youtube.com/watch?v=elkyRi_wDgM' target='_blank' class='url'>https://www.youtube.com/watch?v=elkyRi_wDgM</a></li><li><span>Playing Favorites : </span><a href='https://www.youtube.com/watch?v=Rlt0VCNXP5E' target='_blank' class='url'>https://www.youtube.com/watch?v=Rlt0VCNXP5E</a></li></ol><ul><li><span>Caring for Animals</span></li></ul><ol start='7' ><li><span>Your Dog the Celebrity : </span><a href='https://www.youtube.com/watch?v=cDq1gG4cCrs' target='_blank' class='url'>https://www.youtube.com/watch?v=cDq1gG4cCrs</a></li><li><span>Living with Animals : </span><a href='https://www.youtube.com/watch?v=NP2RS73NnRA' target='_blank' class='url'>https://www.youtube.com/watch?v=NP2RS73NnRA</a></li><li><span>A Healthy Pet is a Happy Pet : </span><a href='https://www.youtube.com/watch?v=miKbLb0hgrg' target='_blank' class='url'>https://www.youtube.com/watch?v=miKbLb0hgrg</a></li></ol><ul><li><span>World Connection</span></li></ul><ol start='10' ><li><span>Going Places : </span><a href='https://www.youtube.com/watch?v=13eh8dG81ZY' target='_blank' class='url'>https://www.youtube.com/watch?v=13eh8dG81ZY</a></li><li><span>Quick Bite to Eat : </span><a href='https://www.youtube.com/watch?v=5Q26rnWdZo8' target='_blank' class='url'>https://www.youtube.com/watch?v=5Q26rnWdZo8</a></li><li><span>Home Away from Home : </span><a href='https://www.youtube.com/watch?v=YsIvuzJk4_s' target='_blank' class='url'>https://www.youtube.com/watch?v=YsIvuzJk4_s</a></li></ol><ul><li><span>Cycles</span></li></ul><ol start='13' ><li><span>The World’s Greatest Traveler : </span><a href='https://www.youtube.com/watch?v=zTH9FMBXgkU' target='_blank' class='url'>https://www.youtube.com/watch?v=zTH9FMBXgkU</a></li><li><span>What a Farmer Knows : </span><a href='https://www.youtube.com/watch?v=z91eXJ7aJdo' target='_blank' class='url'>https://www.youtube.com/watch?v=z91eXJ7aJdo</a></li><li><span>As the Earth Moves : </span><a href='https://www.youtube.com/watch?v=6OgKrMM8yeY' target='_blank' class='url'>https://www.youtube.com/watch?v=6OgKrMM8yeY</a></li></ol><h5 id='reading-for-vocabulary-word--level-a'><span>Reading for Vocabulary WORD | Level A</span></h5><ol start='' ><li><span>Vegetable : </span><a href='https://www.youtube.com/watch?v=JiQs8UJqh8c' target='_blank' class='url'>https://www.youtube.com/watch?v=JiQs8UJqh8c</a></li></ol><p>&nbsp;</p><p>&nbsp;</p></div></div>
+</body>
+</html>
